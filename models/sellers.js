@@ -20,7 +20,6 @@ const sellerSchema = new Schema({
     user_id: {
         type: Schema.Types.ObjectId,
         ref: "users",
-        unique:true
     }, 
     firstName: {
         type: String,
