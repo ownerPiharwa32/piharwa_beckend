@@ -8,7 +8,7 @@ const config = {
       url: `mongodb+srv://piharwaDB:piharwaDBpass@cluster0.mx6skd3.mongodb.net/piharwaDB?retryWrites=true&w=majority`,
     },
 
-  whitelist: { whitelist_url: ['http://localhost:3000', 'http://localhost:4200', 'http://localhost:8080'] },
+  whitelist: { whitelist_url: ['http://localhost:3000', 'http://localhost:4200', 'http://localhost:8080', 'http://18.217.243.189:3000'] },
     
   jwt: {
     jwtSecret: 'SEVCEPiharwaAWDVEDDVECVC',
