@@ -1,7 +1,8 @@
 const config = {
     server: {
-      port: 3000,
-      hostname: "127.0.0.1"
+    port: 3000,
+    hostname: "127.0.0.1",
+    swaggerHostname: process.env.SWAGGER_HOSTNAME
     },
     database: {
       //  url: `mongodb://localhost:27017/piharwaDB`,
