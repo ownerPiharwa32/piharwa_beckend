@@ -12,7 +12,7 @@ module.exports.buyersRegistration = async function (req, res) {
 }
 
 
-module.exports.buyersLogin = async () => {
+module.exports.buyersLogin = async (req,res) => {
     try {
         const result = await buyerService.buyersLogin(req.body);
         if (result.status != false) {

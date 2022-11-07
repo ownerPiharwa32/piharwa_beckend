@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/sellers/register', sellersController.sellersRegistration) 
-router.post('/sellers/login', Auth.restrictTo(roles.admin, roles.sellers), sellersController.sellersLogin) 
+router.post('/sellers/login', sellersController.sellersLogin) 
 
 
 router.post('/buyers/register', buyersController.buyersRegistration) 

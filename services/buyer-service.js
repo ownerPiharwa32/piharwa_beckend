@@ -1,6 +1,8 @@
 const userModel = require('../models/users')
 const buyerModel = require('../models/buyers')
-
+const commonService = require('./common-service');
+const bcrypt = require("bcrypt");
+const config = require("../config/config");
 
 module.exports.buyersRegistration = async function (reqBody) { 
     reqBody.role = 'buyers';
@@ -14,7 +16,7 @@ module.exports.buyersRegistration = async function (reqBody) {
 
 module.exports.buyersLogin = async function (reqBody) { 
     let emailId = reqBody.emailId
-    let user = await userModel.findOne({ "emailId": emailId })
+    let user = await userModel.findOne({ "emailId": emailId, role:"buyers" })
    
     if (user != null) {
         
