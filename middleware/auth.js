@@ -52,3 +52,19 @@ const isValidToken = async function (token) {
         };
     }
 };
+
+
+
+module.exports.restrictTo = (...roles) => {
+    try {
+        const errmsg = "You do not have permission to perform this action";
+        return (req, res, next) => {
+            if (!roles.includes(req.user.role)) {
+                res.json({ status: false, message: "You are not the authorized user" })
+            }
+            next();
+        }
+    } catch (error) {
+        return next(error);
+    }
+};

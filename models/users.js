@@ -12,8 +12,12 @@ const usersSchema = new Schema({
     lastName: {
         type: String,
     },
+    mobileNo: {
+        type: String,
+    },
     emailId: {
         type: String,
+        unique: true
     },
     password: {
         type: String,

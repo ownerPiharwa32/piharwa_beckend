@@ -20,6 +20,8 @@
 *         type: string
 *       lastName:
 *         type: string
+*       mobileNo:
+*         type: string
 *       emailId:
 *         type: string
 *       password:

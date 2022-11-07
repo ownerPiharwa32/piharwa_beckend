@@ -27,6 +27,10 @@ const productSchema = new Schema({
     productCategoryName: {
         type: String,
     },
+    featuredProduct: {
+        type: Boolean,  
+        default: false
+    },
     price: {
         type: Number,
     },
