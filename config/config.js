@@ -3,17 +3,16 @@ const config = {
     port: 3000,
     hostname: "127.0.0.1",
     swaggerHostname: process.env.SWAGGER_HOSTNAME
-    },
-    database: {
-      //  url: `mongodb://localhost:27017/piharwaDB`,
-      url: `mongodb+srv://piharwaDB:piharwaDBpass@cluster0.mx6skd3.mongodb.net/piharwaDB?retryWrites=true&w=majority`,
-    },
-
+  },
+  database: {
+    // url: `mongodb://localhost:27017/piharwaDB`,
+    url: `mongodb+srv://piharwaDB:piharwaDBpass@cluster0.mx6skd3.mongodb.net/piharwaDB?retryWrites=true&w=majority`
+  },
   whitelist: { whitelist_url: ['http://localhost:3000', 'http://localhost:4200', 'http://localhost:8080', 'http://18.217.243.189:3000'] },
     
   jwt: {
-    jwtSecret: 'SEVCEPiharwaAWDVEDDVECVC',
-    refreshTokenSecret: 'ACXDDCEDefvgrEFCDCFFDFRVRV',
+    jwtSecret: process.env.JWT_SECRET_TOKEN,
+    refreshTokenSecret: process.env.JWT_REFRESH_TOKEN,
     jwtSession: {
       session: false,
     },
