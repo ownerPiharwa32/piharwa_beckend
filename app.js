@@ -10,11 +10,19 @@ const config = require('./config/config')
 const db = require('./config/db');
 const swaggerUi = require('swagger-ui-express')
 const swaggerJSDoc = require('swagger-jsdoc');
+const ejs = require('ejs');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
+
+app.set("view engine", "ejs");
+app.use(express.static(__dirname + '/public'));
+
+app.get('/', (req, res) => {
+  res.render('../templates/index')
+})
 
 const swaggerDefinition = {
   info: {
