@@ -16,7 +16,8 @@ module.exports.buyersRegistration = async function (reqBody) {
 
 module.exports.buyersLogin = async function (reqBody) { 
     let emailId = reqBody.emailId
-    let user = await userModel.findOne({ "emailId": emailId, role:"buyers" })
+    let mobileNo = reqBody.mobileNo
+    let user = await userModel.findOne({$or: [{mobileNo: mobileNo}, {"emailId" : emailId}], role: "buyers"})
    
     if (user != null) {
         

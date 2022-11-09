@@ -129,3 +129,82 @@
 *              schema:
 *                type: object
 */
+
+
+
+
+
+
+
+
+
+/**
+ * @swagger
+ * definition:
+ *   UpdateProductDetails:
+ *     properties:
+ *       productId:
+ *         type: string
+ *       productTitle:
+ *         type: string
+ *       SellerStoreID:
+ *         type: string
+ *       sellerStoreName:
+ *         type: string
+ *       productDescription:
+ *         type: string
+ *       productCategoryID:
+ *         type: string
+ *       price:
+ *         type: integer
+ *       currency:
+ *         type: string
+ *       discountPrice:
+ *         type: integer
+ *       productDetails:
+ *         type: array
+ *         items:
+ *             type: object
+ *             properties:
+ *                  sizes:
+ *                      type: string
+ *                  stockAvailability:
+ *                      type: boolean
+ *       productRating:
+ *         type: integer
+ *       OverallRating:
+ *         type: integer 
+ * 
+ */
+
+
+
+
+/**
+ * @swagger
+ * /api/v1/product/update:
+ *   put:
+ *     security:
+ *       - bearerAuth: []  
+ *     tags:
+ *       - product-controller
+ *     description: Update Product Details
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: ProductDetails
+ *         description: ProductDetails object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/UpdateProductDetails'
+ *     responses:
+ *       200:
+ *         description: Successfully logged in
+ *         content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ */
+

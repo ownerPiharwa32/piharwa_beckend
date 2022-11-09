@@ -38,7 +38,7 @@ router.get('/sellers/details', sellersController.sellerDetails)
 router.post('/category/add', categoryController.addCategoryDetails)
 router.put('/category/update', categoryController.updateCategoryDetails)
 router.post('/product/add', productController.addProductDetails)
-
+router.put('/product/update', productController.updateProductDetails)
 
 router.post('/product/upload/images/:id', upload.uploadFile.array('image', 6), uploadController.uploadProductImgs);
 

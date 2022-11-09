@@ -10,6 +10,17 @@ module.exports.addProductDetails = async function (req, res) {
     }
 }
 
+module.exports.updateProductDetails = async function (req, res) { 
+    try {
+        const result = await productService.updateProductDetails(req.body);
+        res.json({"status": true , "message": "Product Updated Successfully!" , data: result });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}
+
+
+
 module.exports.productListing = async function (req, res) { 
     try {
         const result = await productService.productListing();
