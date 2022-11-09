@@ -8,6 +8,7 @@ const productController = require('../controllers/product-controller')
 const categoryController = require('../controllers/category-controller')
 const uploadController = require('../controllers/upload-controller')
 const buyersController = require('../controllers/buyer-controller')
+const commonController = require('../controllers/common-controller')
 
 const Auth = require('../middleware/auth');
 const { roles } = require('../constants/constants');
@@ -24,7 +25,7 @@ router.post('/sellers/login', sellersController.sellersLogin)
 
 router.post('/buyers/register', buyersController.buyersRegistration) 
 router.post('/buyers/login',buyersController.buyersLogin) 
-
+router.post('/buyers/verify/otp',buyersController.verifyOTP) 
 
 
 router.get('/category/list', categoryController.getCategoryDetails)
@@ -41,6 +42,14 @@ router.post('/product/add', productController.addProductDetails)
 router.put('/product/update', productController.updateProductDetails)
 
 router.post('/product/upload/images/:id', upload.uploadFile.array('image', 6), uploadController.uploadProductImgs);
+
+
+
+
+/************************* common Api's *******************************/
+
+ router.post('/user/forget-password',commonController.forgetPassword) 
+
 
 
 module.exports = router;

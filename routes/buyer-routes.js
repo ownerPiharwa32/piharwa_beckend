@@ -100,3 +100,48 @@
  *              schema:
  *                type: object
  */
+
+
+
+
+
+
+/**
+ * @swagger
+ * definition:
+ *   BOTPLogin:
+ *     properties:
+ *       mobileNo:
+ *         type: string
+ *       emailId:
+ *         type: string
+ *       otpToken:
+ *         type: string
+ */
+
+
+/**
+ * @swagger
+ * /api/v1/buyers/verify/otp:
+ *   post:
+ *     tags:
+ *       - buyer-controller
+ *     description: Service Provider Login Details
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: BOTPLogin
+ *         description: LoginDetails object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/BOTPLogin'
+ *     responses:
+ *       200:
+ *         description: Successfully logged using Otp
+ *         content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ */

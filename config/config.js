@@ -6,7 +6,7 @@ const config = {
   },
   database: {
     // url: `mongodb://localhost:27017/piharwaDB`,
-    url: `mongodb+srv://piharwaDB:piharwaDBpass@cluster0.mx6skd3.mongodb.net/piharwaDB?retryWrites=true&w=majority`
+     url: `mongodb+srv://piharwaDB:piharwaDBpass@cluster0.mx6skd3.mongodb.net/piharwaDB?retryWrites=true&w=majority`
   },
   whitelist: { whitelist_url: ['http://localhost:3000', 'http://localhost:4200', 'http://localhost:8080', 'http://18.217.243.189:3000'] },
     
@@ -24,6 +24,13 @@ const config = {
     AWSKEYACCESSID: process.env.AWSKEYACCESSID,
     AWSSECRETKEY: process.env.AWSSECRETKEY
   },
+  emailSecret: {
+    SES_HOST_NAME : process.env.SES_HOST_NAME,
+    SES_EMAIL_PORT : process.env.SES_PORT,
+    SES_USER_NAME : process.env.SES_USER_NAME,
+    SES_USER_PASSWORD : process.env.SES_USER_PASSWORD,
+    SES_USER_EMAIL : process.env.SES_USER_EMAIL,
+  }
     
   }
 
