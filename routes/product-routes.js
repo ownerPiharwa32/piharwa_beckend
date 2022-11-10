@@ -38,6 +38,8 @@
  *         items:
  *             type: object
  *             properties:
+ *                  quantity:
+ *                      type: integer
  *                  sizes:
  *                      type: string
  *                  stockAvailability:
@@ -162,6 +164,8 @@
  *         items:
  *             type: object
  *             properties:
+ *                  quantity:
+ *                      type: integer
  *                  sizes:
  *                      type: string
  *                  stockAvailability:
