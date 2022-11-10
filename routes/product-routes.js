@@ -21,6 +21,8 @@
  *     properties:
  *       productTitle:
  *         type: string
+ *       productSKU:
+ *         type: string
  *       SellerStoreID:
  *         type: string
  *       productDescription:
@@ -31,8 +33,6 @@
  *         type: integer
  *       currency:
  *         type: string
- *       discountPrice:
- *         type: integer
  *       productDetails:
  *         type: array
  *         items:
@@ -145,6 +145,8 @@
  *         type: string
  *       productTitle:
  *         type: string
+ *       productSKU:
+ *         type: string
  *       SellerStoreID:
  *         type: string
  *       productDescription:
@@ -155,8 +157,6 @@
  *         type: integer
  *       currency:
  *         type: string
- *       discountPrice:
- *         type: integer
  *       productDetails:
  *         type: array
  *         items:

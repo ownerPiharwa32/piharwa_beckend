@@ -9,6 +9,9 @@ const productSchema = new Schema({
     productTitle: {
         type: String,
     },
+    productSKU: {
+        type: String,
+    },
     SellerStoreID: {
         type: Schema.Types.ObjectId,
         ref: "sellers",
@@ -34,11 +37,11 @@ const productSchema = new Schema({
     currency: {
         type: String, 
     },
-    discountPrice: {
-        type: Number
-    },
     product_imgs: [],
     productDetails: [{
+        quantity: {
+            type: Number
+        },
         sizes: {
             type: String,
         }, 
