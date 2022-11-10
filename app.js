@@ -68,7 +68,7 @@ app.use('/api/v1/', routes)
 
 db.on('connected', () => { console.log('successfully connected to db!'); })
 
-app.listen(config.server.port, () =>{ console.log('port is running successfully');})
+app.listen(() =>{ console.log('port is running successfully');})
 
 
 
