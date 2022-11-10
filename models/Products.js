@@ -15,7 +15,6 @@ const productSchema = new Schema({
     SellerStoreID: {
         type: Schema.Types.ObjectId,
         ref: "sellers",
-        unique: true
     },
     productDescription: {
         type: String,
