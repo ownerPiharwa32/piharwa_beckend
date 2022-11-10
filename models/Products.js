@@ -14,9 +14,6 @@ const productSchema = new Schema({
         ref: "sellers",
         unique: true
     },
-    sellerStoreName: {
-        type: String,
-    },
     productDescription: {
         type: String,
     },

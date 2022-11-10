@@ -149,8 +149,6 @@
  *         type: string
  *       SellerStoreID:
  *         type: string
- *       sellerStoreName:
- *         type: string
  *       productDescription:
  *         type: string
  *       productCategoryID:
