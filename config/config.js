@@ -1,6 +1,6 @@
 const config = {
     server: {
-    port: 8080,
+    port: 80,
     hostname: "127.0.0.1",
     swaggerHostname: process.env.SWAGGER_HOSTNAME
   },
