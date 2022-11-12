@@ -24,3 +24,26 @@ module.exports.getSingleproduct = async (reqParams) => {
     let result = await productModel.findOne({_id: reqParams.id})
     return result
 }
+
+
+module.exports.updateImgForProduct = async (fileLocation, reqParams) => {
+    let imgObj = {
+        product_img: fileLocation,
+        default: reqParams.default
+    }
+
+    let result = await productModel.findByIdAndUpdate({ _id: reqParams.productId }, {
+        $push: {
+            product_imgs: [imgObj]
+        } })
+    return result
+}
+
+
+module.exports.removeProductImgs = async (reqParams) => { 
+    let result = await productModel.findByIdAndUpdate({ _id: reqParams.productId }, {
+        $pull: {
+            product_imgs: {_id: reqParams.productImgId}
+        } })
+    return result
+}   

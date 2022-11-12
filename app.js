@@ -17,7 +17,6 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-console.log(config.server.swaggerHostname,"rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrra")
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));

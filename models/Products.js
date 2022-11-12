@@ -36,7 +36,16 @@ const productSchema = new Schema({
     currency: {
         type: String, 
     },
-    product_imgs: [],
+    product_imgs: [
+        {
+            product_img: {
+                type: String,
+            },
+            default: {
+                type: Boolean,
+            }
+        }
+    ],
     productDetails: [{
         quantity: {
             type: Number
