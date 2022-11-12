@@ -29,7 +29,7 @@ router.post('/buyers/verify/otp',buyersController.verifyOTP)
 
 
 router.get('/category/list', categoryController.getCategoryDetails)
-router.get('/product/list', productController.productListing)
+router.get('/product/list/:page_no/:no_record', productController.productListing)
 router.get('/product/single-product/:id', productController.getSingleproduct)
     
 router.use(Auth.VerifyToken);

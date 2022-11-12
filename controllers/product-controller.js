@@ -23,8 +23,8 @@ module.exports.updateProductDetails = async function (req, res) {
 
 module.exports.productListing = async function (req, res) { 
     try {
-        const result = await productService.productListing();
-        res.json({"status": true , "message": "Product Fetched Successfully!" , data: result });
+        const result = await productService.productListing(req.params.page_no , req.params.no_record);
+        res.json({"status": result.status , "message": result.message , data: result.data });
     } catch (e) {
         res.json({"status": false , "message": e.errors});
     }

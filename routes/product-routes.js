@@ -86,13 +86,24 @@
 
 /**
 * @swagger
-* /api/v1/product/list:
+* /api/v1/product/list/{page_no}/{no_record}:
 *   get:
 *     tags:
 *       - product-controller
 *     description: Get Product List
 *     produces:
 *       - application/json
+*     parameters:
+*       - name: page_no
+*         description: page number
+*         in: path
+*         required: true
+*         type: number
+*       - name: no_record
+*         description: number of record per page
+*         in: path
+*         required: true
+*         type: number
 *     responses:
 *       200:
 *         description: Successfully Fetched

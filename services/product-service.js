@@ -15,9 +15,24 @@ module.exports.updateProductDetails = async (reqBody) => {
 
 
 
-module.exports.productListing = async () => { 
-    let result = await productModel.find()
-    return result
+module.exports.productListing = async (page_no, no_record) => { 
+    let productDetails = await productModel.find()
+    const page = page_no * 1 || 1;
+    const limit = no_record * 1 || 10;
+    const skip = (page - 1) * limit;
+    const paginatedItems = productDetails.slice(skip).slice(0, limit);
+    const total = productDetails.length
+    const total_pages = Math.ceil(total / limit)
+    return {
+        status: true,
+        message: "List Fetched Successfully!",
+        data: {
+            per_page: limit,
+            total: total,
+            total_pages: total_pages,
+            productList: paginatedItems
+        }
+    }
 }
 
 module.exports.getSingleproduct = async (reqParams) => {
