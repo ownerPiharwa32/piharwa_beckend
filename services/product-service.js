@@ -4,8 +4,8 @@ const productModel = require('../models/Products')
 const { ObjectId } = require('mongodb');
 
 module.exports.addProduct = async (reqBody) => {
-    let result = await productModel.create(reqBody)
-    return result
+        let result = await productModel.create(reqBody)
+        return result  
 }
 
 module.exports.updateProductDetails = async (reqBody) => { 
@@ -15,11 +15,129 @@ module.exports.updateProductDetails = async (reqBody) => {
 
 
 
-module.exports.productListing = async (page_no, no_record) => { 
-    let productDetails = await productModel.find()
-    const page = page_no * 1 || 1;
-    const limit = no_record * 1 || 10;
+module.exports.productListing = async (reqBody) => { 
+    const page = reqBody.page_no * 1 || 1;
+    const limit = reqBody.no_record * 1 || 10;
     const skip = (page - 1) * limit;
+    const categoryId = reqBody.productCategoryID
+    const searchText = reqBody.searchText
+    let reqObj
+    let searchObj;
+
+  
+    if (categoryId == '' && searchText == '') {
+        reqObj = {
+            $match: {}
+        }
+        searchObj = {
+            $match: {}
+        }
+    }
+    else if (categoryId) {
+        reqObj = {
+            $match: {
+                productCategoryID: ObjectId(categoryId)
+            }
+        }
+        searchObj = {
+            $match: {}
+        }
+    }
+    else if (searchText) {
+        reqObj = {
+            $match: {}
+        }
+        searchObj = {
+            $match: {
+                $or: [{
+                    productTitle: {
+                        $regex: searchText,
+                        $options: "$ig"
+                    },
+                },
+                {
+                    productCategoryName: {
+                        $regex: searchText,
+                        $options: "$ig"
+                    }
+                }]
+            },
+        }
+    }
+    else if (categoryId != '' && searchText != '') { 
+        reqObj = {
+            $match: {
+                productCategoryID: ObjectId(categoryId)
+            }
+        }
+
+        searchObj = {
+            $match: {
+                $or: [{
+                    productTitle: {
+                        $regex: searchText,
+                        $options: "$ig"
+                    },
+                }]
+            },
+        }
+    }
+
+
+
+
+    let productDetails = await productModel.aggregate([
+        reqObj,
+        {
+                
+               $lookup: {
+                    from: "sellers",
+                    localField: "SellerStoreID",
+                    foreignField: "_id",
+                    as: "sellerShopName"
+                }},
+                 {
+                $unwind: "$sellerShopName"
+            },
+            {
+            $lookup: {
+                    from: "categories",
+                    localField: "productCategoryID",
+                    foreignField: "_id",
+                    as: "categoryProducts"
+                }},
+                 {
+                $unwind: "$categoryProducts"
+            },
+            
+            
+            
+                {
+                     $project: {
+                         productTitle: 1,
+                         productSKU: 1,
+                         SellerStoreID: 1,
+                         SellerShopName: "$sellerShopName.storeName",
+                         productDescription: 1,
+                         productCategoryID: 1,
+                         productCategoryName: "$categoryProducts.categoryTitle",
+                         featuredProduct: 1,
+                         price: 1,
+                         currency: 1,
+                         productDetails: 1,
+                         productRating: 1,
+                         OverallRating: 1,
+                         product_imgs: 1,
+                         createdAt: 1,
+                         updatedAt: 1
+                         },
+                    
+        },
+        searchObj
+                
+                ])
+
+
     const paginatedItems = productDetails.slice(skip).slice(0, limit);
     const total = productDetails.length
     const total_pages = Math.ceil(total / limit)

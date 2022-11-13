@@ -84,26 +84,45 @@
 
 
 
+
+
+/**
+ * @swagger
+ * definition:
+ *   GetProductDetails:
+ *     properties:
+ *       page_no:
+ *         type: integer
+ *       no_record:
+ *         type: integer
+ *       productCategoryID:
+ *         type: string
+ *       searchText:
+ *         type: string
+ * 
+ */
+
+
+
+
+
 /**
 * @swagger
-* /api/v1/product/list/{page_no}/{no_record}:
-*   get:
-*     tags:
-*       - product-controller
-*     description: Get Product List
-*     produces:
-*       - application/json
-*     parameters:
-*       - name: page_no
-*         description: page number
-*         in: path
-*         required: true
-*         type: number
-*       - name: no_record
-*         description: number of record per page
-*         in: path
-*         required: true
-*         type: number
+* /api/v1/product/list:
+*   post:
+ *     tags:
+ *       - product-controller
+ *     description: Get Product Details
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: ProductDetails
+ *         description: Get ProductDetails object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/GetProductDetails'
 *     responses:
 *       200:
 *         description: Successfully Fetched

@@ -29,15 +29,15 @@ router.post('/buyers/verify/otp',buyersController.verifyOTP)
 
 
 router.get('/category/list', categoryController.getCategoryDetails)
-router.get('/product/list/:page_no/:no_record', productController.productListing)
+router.post('/product/list', productController.productListing)
 router.get('/product/single-product/:id', productController.getSingleproduct)
     
 router.use(Auth.VerifyToken);
 
 router.get('/sellers/details', sellersController.sellerDetails) 
 
-router.post('/category/add',  Auth.restrictTo(roles.admin), categoryController.addCategoryDetails)
-router.put('/category/update', categoryController.updateCategoryDetails)
+router.post('/category/add',  categoryController.addCategoryDetails)
+router.put('/category/update', Auth.restrictTo(roles.admin), categoryController.updateCategoryDetails)
 router.post('/product/add',  Auth.restrictTo(roles.sellers), productController.addProductDetails)
 router.put('/product/update', Auth.restrictTo(roles.sellers), productController.updateProductDetails)
 

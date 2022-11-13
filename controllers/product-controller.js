@@ -23,7 +23,7 @@ module.exports.updateProductDetails = async function (req, res) {
 
 module.exports.productListing = async function (req, res) { 
     try {
-        const result = await productService.productListing(req.params.page_no , req.params.no_record);
+        const result = await productService.productListing(req.body);
         res.json({"status": result.status , "message": result.message , data: result.data });
     } catch (e) {
         res.json({"status": false , "message": e.errors});
