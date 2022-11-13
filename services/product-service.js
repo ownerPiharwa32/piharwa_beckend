@@ -120,10 +120,9 @@ module.exports.productListing = async (reqBody) => {
                          productCategoryName: "$categoryProducts.categoryTitle",
                          price: 1,
                          currency: 1,
-                         productDetails: 1,
+                         productImg: 1,
                          productRating: 1,
                          OverallRating: 1,
-                         product_imgs: 1,
                          createdAt: 1,
                          updatedAt: 1
                          },
@@ -156,15 +155,27 @@ module.exports.getSingleproduct = async (reqParams) => {
 
 
 module.exports.updateImgForProduct = async (fileLocation, reqParams) => {
-    let imgObj = {
-        product_img: fileLocation,
-        default: reqParams.default
-    }
+    let imgObj;
+    let result
 
-    let result = await productModel.findByIdAndUpdate({ _id: reqParams.productId }, {
-        $push: {
-            product_imgs: [imgObj]
-        } })
+    if (reqParams.default == 'false') {
+        result = await productModel.findByIdAndUpdate({ _id: reqParams.productId }, {
+            $push: {
+                thumbnailImgs: fileLocation
+            }
+        })
+    } else {
+        result = await productModel.findByIdAndUpdate({ _id: reqParams.productId }, {
+        
+            $push: {
+                thumbnailImgs: fileLocation
+            },
+            $set:  {
+                productImg : fileLocation
+            },
+        })
+    } 
+
     return result
 }
 
