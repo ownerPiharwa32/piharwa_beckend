@@ -115,13 +115,9 @@ module.exports.productListing = async (reqBody) => {
                 {
                      $project: {
                          productTitle: 1,
-                         productSKU: 1,
-                         SellerStoreID: 1,
                          SellerShopName: "$sellerShopName.storeName",
-                         productDescription: 1,
                          productCategoryID: 1,
                          productCategoryName: "$categoryProducts.categoryTitle",
-                         featuredProduct: 1,
                          price: 1,
                          currency: 1,
                          productDetails: 1,
