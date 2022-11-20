@@ -33,6 +33,11 @@
  *         type: integer
  *       currency:
  *         type: string
+ *       allowDiscount:
+ *         type: boolean
+ *         default: false
+ *       discountPercentage:
+ *         type: integer
  *       productDetails:
  *         type: array
  *         items:

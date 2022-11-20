@@ -4,8 +4,14 @@ const productModel = require('../models/Products')
 const { ObjectId } = require('mongodb');
 
 module.exports.addProduct = async (reqBody) => {
-        let result = await productModel.create(reqBody)
-        return result  
+
+    let allowDiscount = reqBody.allowDiscount
+    if (allowDiscount == true) {
+        let discountVal = ((reqBody.discountPercentage * reqBody.price)/100).toFixed(2)
+        reqBody.discountPrice = (reqBody.price - discountVal).toFixed(2)
+    } 
+    let result = await productModel.create(reqBody)
+    return result  
 }
 
 module.exports.updateProductDetails = async (reqBody) => { 

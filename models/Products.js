@@ -36,6 +36,16 @@ const productSchema = new Schema({
     currency: {
         type: String, 
     },
+    allowDiscount: {
+        type: Boolean,
+        default: false
+    },
+    discountPercentage: {
+        type: Number,
+    },
+    discountPrice: {
+        type: Number
+    },
     productImg: {
         type: String,
     },
