@@ -104,7 +104,7 @@
 
 /**
  * @swagger
- * /api/v1/sellers/login:
+ * /api/v1/user/login:
  *   post:
  *     tags:
  *       - seller-controller

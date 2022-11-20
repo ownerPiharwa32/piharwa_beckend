@@ -243,3 +243,75 @@
  *                type: object
  */
 
+
+
+
+
+
+/**
+ * @swagger
+ * definition:
+ *   FeaturedProduct:
+ *     properties:
+ *       productId:
+ *         type: string
+ *       featuredProduct:
+ *         type: boolean
+ *         default: false
+ */
+
+
+
+
+/**
+ * @swagger
+ * /api/v1/product/add/featured-product:
+ *   post:
+ *     security:
+ *       - bearerAuth: []  
+ *     tags:
+ *       - featured-product-controller
+ *     description: Add Featured Product
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: ProductDetails
+ *         description: ProductDetails object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/FeaturedProduct'
+ *     responses:
+ *       200:
+ *         description: Successfully logged in
+ *         content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ */
+
+
+
+
+
+
+/**
+* @swagger
+* /api/v1/product/featured-product/list:
+*   get:
+*     tags:
+*       - featured-product-controller
+*     description: Get Featured Product
+*     produces:
+*       - application/json
+*     responses:
+*       200:
+*         description: Successfully Fetched
+*         content:
+*            application/json:
+*              schema:
+*                type: object
+*/
+
+

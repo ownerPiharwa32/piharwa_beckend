@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/sellers/register', sellersController.sellersRegistration) 
-router.post('/sellers/login', sellersController.sellersLogin) 
+router.post('/user/login', sellersController.sellersLogin) 
 
 
 router.post('/buyers/register', buyersController.buyersRegistration) 
@@ -31,18 +31,22 @@ router.post('/buyers/verify/otp',buyersController.verifyOTP)
 router.get('/category/list', categoryController.getCategoryDetails)
 router.post('/product/list', productController.productListing)
 router.get('/product/single-product/:id', productController.getSingleproduct)
+router.get('/product/featured-product/list', productController.getFeaturedProduct)
     
 router.use(Auth.VerifyToken);
 
 router.get('/sellers/details', sellersController.sellerDetails) 
 
-router.post('/category/add',  categoryController.addCategoryDetails)
+router.post('/category/add', Auth.restrictTo(roles.admin), categoryController.addCategoryDetails)
 router.put('/category/update', Auth.restrictTo(roles.admin), categoryController.updateCategoryDetails)
 router.post('/product/add',  Auth.restrictTo(roles.sellers), productController.addProductDetails)
 router.put('/product/update', Auth.restrictTo(roles.sellers), productController.updateProductDetails)
 
 router.post('/product/upload/images/:productId/:default', upload.uploadFile.array('image', 6), uploadController.uploadProductImgs);
 router.post('/product/remove/images/:productId/:productImgId', uploadController.removeProductImgs);
+
+router.post('/product/add/featured-product', Auth.restrictTo(roles.admin), productController.addFeaturedProduct)
+
 
 
 

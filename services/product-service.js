@@ -193,3 +193,21 @@ module.exports.removeProductImgs = async (reqParams) => {
         } })
     return result
 }   
+
+
+module.exports.addFeaturedProduct = async (reqBody) => {
+    let result = await productModel.findByIdAndUpdate({ _id: reqBody.productId }, {
+        $set:  {
+            featuredProduct : reqBody.featuredProduct
+        },
+    })
+
+    return result;
+
+}
+
+
+module.exports.getFeaturedProduct = async () => {
+    let result = await productModel.find({featuredProduct : true},{productImg: 1, price :1, currency:1, discountPrice:1 })
+    return result
+}

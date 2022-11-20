@@ -16,7 +16,7 @@ module.exports.createSellerDetails = async function (reqBody) {
 
 module.exports.sellersLogin = async function (reqBody) { 
     let emailId = reqBody.emailId
-    let user = await userModel.findOne({ "emailId": emailId, role: "sellers" })
+    let user = await userModel.findOne({ "emailId": emailId })
    
     if (user != null) {
         
