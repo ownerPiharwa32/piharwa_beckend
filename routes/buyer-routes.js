@@ -66,9 +66,7 @@
  * definition:
  *   BLoginDetails:
  *     properties:
- *       mobileNo:
- *         type: string
- *       emailId:
+ *       username:
  *         type: string
  *       password:
  *         type: string
