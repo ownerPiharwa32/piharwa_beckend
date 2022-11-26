@@ -109,9 +109,7 @@
  * definition:
  *   BOTPLogin:
  *     properties:
- *       mobileNo:
- *         type: string
- *       emailId:
+ *       username:
  *         type: string
  *       otpToken:
  *         type: string

@@ -71,9 +71,8 @@ module.exports.buyersLogin = async function (reqBody) {
 
 
 module.exports.verifyOTP = async (reqBody) => {
-  let emailId = reqBody.emailId
-  let mobileNo = reqBody.mobileNo
-  let user = await userModel.findOne({ $or: [{ mobileNo: mobileNo }, { "emailId": emailId }], role: "buyers" })
+  let username = reqBody.username
+  let user = await userModel.findOne({ $or: [{ mobileNo: username }, { "emailId": username }], role: "buyers" })
   
   if (user != null) { 
     let otpDetails = await otpTokenService.findUserOtpUsingEmail(user.emailId)
