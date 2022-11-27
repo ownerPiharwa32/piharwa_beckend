@@ -47,8 +47,9 @@ router.post('/product/remove/images/:productId/:productImgId', uploadController.
 
 router.post('/product/add/featured-product', Auth.restrictTo(roles.admin), productController.addFeaturedProduct)
 
+/************************* Seller Api's *******************************/
 
-
+router.get('/seller/product/list', sellersController.sellerProductsList)
 
 /************************* common Api's *******************************/
 

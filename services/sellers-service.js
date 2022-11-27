@@ -40,3 +40,47 @@ module.exports.sellerDetails = async (reqUser) => {
     let result = await sellerModel.findOne({ user_id: reqUser.user_id })
     return result
 }
+
+
+
+
+
+module.exports.sellerProductsList = async (reqUser) => { 
+    
+    let result = await sellerModel.aggregate([
+        {
+            $match:  { user_id: ObjectId(reqUser.user_id) }
+        },
+        {
+
+            $lookup: {
+                from: "products",
+                localField: "_id",
+                foreignField: "SellerStoreID",
+                as: "sellerShopName"
+            }
+        },
+        {
+            $unwind: "$sellerShopName"
+        },
+        {
+            $project: {
+                productId: "$sellerShopName._id",
+                productTitle: "$sellerShopName.productTitle",
+                SellerShopName: 1,
+                productSKU: "$sellerShopName.productSKU",
+                price: "$sellerShopName.price",
+                currency: "$sellerShopName.currency",
+                featuredProduct: "$sellerShopName.featuredProduct",
+                createdAt: 1,
+                updatedAt: 1
+            },
+
+        },
+
+
+    ])
+        
+    return result
+}
+

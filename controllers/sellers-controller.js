@@ -33,3 +33,14 @@ module.exports.sellerDetails = async function (req, res) {
         console.log(e);
     }
 }
+
+module.exports.sellerProductsList = async function (req, res) { 
+    
+    try {
+        const result = await sellersService.sellerProductsList(req.user);
+        res.json({"status": result.status , "message": result.message , data: result });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}
+

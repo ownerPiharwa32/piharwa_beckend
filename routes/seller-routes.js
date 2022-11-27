@@ -150,3 +150,24 @@
 *                type: object
 */  
 
+
+
+/**
+* @swagger
+* /api/v1/seller/product/list:
+*   get:
+*     security:
+*       - bearerAuth: []  
+*     tags:
+*       - seller-controller
+*     description: Get Seller Product
+*     produces:
+*       - application/json
+*     responses:
+*       200:
+*         description: Successfully Fetched
+*         content:
+*            application/json:
+*              schema:
+*                type: object
+*/
