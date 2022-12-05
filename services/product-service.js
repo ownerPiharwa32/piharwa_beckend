@@ -3,9 +3,11 @@ const userModel = require('../models/users')
 const productModel = require('../models/Products')
 const { ObjectId } = require('mongodb');
 
-module.exports.addProduct = async (reqBody) => {
-
+module.exports.addProduct = async (reqUser, reqBody) => {
+    let user_id = reqUser.user_id
+    let sellerDetails = await sellerModel.findOne({ user_id: user_id }, { storeName: 1 })
     let allowDiscount = reqBody.allowDiscount
+    reqBody.SellerStoreID = sellerDetails._id
     if (allowDiscount == true) {
         let discountVal = ((reqBody.discountPercentage * reqBody.price)/100).toFixed(2)
         reqBody.discountPrice = (reqBody.price - discountVal).toFixed(2)

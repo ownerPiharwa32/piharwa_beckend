@@ -14,7 +14,7 @@ module.exports.sellersLogin = async function (req, res) {
     try {
         const result = await sellersService.sellersLogin(req.body);
         if (result.status != false) {
-            res.json({ "status": true, "message": "User Login Successfully!", accessToken: result.accesstoken, refreshToken: result.refreshtoken });
+            res.json({ "status": true, "message": "User Login Successfully!", accessToken : result.accessToken, refreshToken: result.refreshtoken, role: result.role });
         } else {
             res.json({ status: false, message: result.message })
         }

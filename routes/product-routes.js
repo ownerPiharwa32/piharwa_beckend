@@ -23,8 +23,6 @@
  *         type: string
  *       productSKU:
  *         type: string
- *       SellerStoreID:
- *         type: string
  *       productDescription:
  *         type: string
  *       productCategoryID:

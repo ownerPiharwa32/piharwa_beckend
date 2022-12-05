@@ -25,7 +25,7 @@ module.exports.sellersLogin = async function (reqBody) {
             let user_id = user._id
             await commonService.updateAccessToken(user_id, tokenDetails.accesstoken)
             await commonService.updateRefreshToken(user_id, tokenDetails.refreshtoken)
-            return tokenDetails
+            return { accessToken : tokenDetails.accesstoken, refreshtoken : tokenDetails.refreshtoken, "role" : user.role }
             
             } else {
                 return { "status": false, "message": "Invalid Password!" }

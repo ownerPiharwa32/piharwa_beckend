@@ -3,10 +3,10 @@ const productService = require('../services/product-service')
 
 module.exports.addProductDetails = async function (req, res) { 
     try {
-        const result = await productService.addProduct(req.body);
-        res.json({"status": true , "message": "Product Added Successfully!" , data: result });
+        const result = await productService.addProduct(req.user, req.body);
+        res.status(200).json({"status": true , "message": "Product Added Successfully!" , data: result });
     } catch (e) {
-        res.json({"status": false , "message": e});
+        res.status(400).json({"status": false , "message": e});
     }
 }
 
@@ -15,7 +15,7 @@ module.exports.updateProductDetails = async function (req, res) {
         const result = await productService.updateProductDetails(req.body);
         res.json({"status": true , "message": "Product Updated Successfully!" , data: result });
     } catch (e) {
-        res.json({"status": false , "message": e.errors});
+        res.status(400).json({"status": false , "message": e.errors});
     }
 }
 
