@@ -17,8 +17,13 @@ module.exports.addProduct = async (reqUser, reqBody) => {
 }
 
 module.exports.updateProductDetails = async (reqBody) => { 
-    let result = await productModel.findByIdAndUpdate({ _id: reqBody.productId }, { $set: reqBody })
-    return result
+    try {
+        let result = await productModel.findOneAndUpdate({ _id: ObjectId(reqBody.productId)}, { $set: reqBody })
+        return result;
+    } catch (e) {
+        console.log(e)
+    }
+   
 }
 
 

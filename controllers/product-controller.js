@@ -13,7 +13,9 @@ module.exports.addProductDetails = async function (req, res) {
 module.exports.updateProductDetails = async function (req, res) { 
     try {
         const result = await productService.updateProductDetails(req.body);
-        res.json({"status": true , "message": "Product Updated Successfully!" , data: result });
+        if (result) {
+            res.status(200).json({"status": true , "message": "Product Updated Successfully!" , data: result });
+        }
     } catch (e) {
         res.status(400).json({"status": false , "message": e.errors});
     }
