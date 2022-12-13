@@ -139,7 +139,7 @@ module.exports.productListing = async (reqBody) => {
                          productCategoryName: "$categoryProducts.categoryTitle",
                          price: 1,
                          currency: 1,
-                         productImg: 1,
+                         productImg: { $arrayElemAt: [ "$thumbnailImgs", 0 ] },
                          productRating: 1,
                          OverallRating: 1,
                          createdAt: 1,
