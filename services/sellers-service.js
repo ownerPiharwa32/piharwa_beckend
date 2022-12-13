@@ -2,7 +2,7 @@ const sellerModel = require('../models/sellers')
 const userModel = require('../models/users')
 const commonService = require('./common-service');
 const config = require("../config/config");
-const {ObjectId} = require('mongodb');
+const { ObjectId } = require('mongodb');
 const bcrypt = require("bcrypt");
 
 module.exports.createSellerDetails = async function (reqBody) {
@@ -14,24 +14,24 @@ module.exports.createSellerDetails = async function (reqBody) {
 }
 
 
-module.exports.sellersLogin = async function (reqBody) { 
+module.exports.sellersLogin = async function (reqBody) {
     let emailId = reqBody.emailId
     let user = await userModel.findOne({ "emailId": emailId })
-   
+
     if (user != null) {
-        
+
         if (await user.correctPassword(reqBody.password)) {
             const tokenDetails = await commonService.generateToken(user._id, config.jwt.web_timeout);
             let user_id = user._id
             await commonService.updateAccessToken(user_id, tokenDetails.accesstoken)
             await commonService.updateRefreshToken(user_id, tokenDetails.refreshtoken)
-            return { accessToken : tokenDetails.accesstoken, refreshtoken : tokenDetails.refreshtoken, "role" : user.role }
-            
-            } else {
-                return { "status": false, "message": "Invalid Password!" }
-            }
+            return { accessToken: tokenDetails.accesstoken, refreshtoken: tokenDetails.refreshtoken, "role": user.role }
+
+        } else {
+            return { "status": false, "message": "Invalid Password!" }
+        }
     } else {
-        return {"status": false , "message": "EmailId not Exist!"}
+        return { "status": false, "message": "EmailId not Exist!" }
     }
 }
 
@@ -45,11 +45,11 @@ module.exports.sellerDetails = async (reqUser) => {
 
 
 
-module.exports.sellerProductsList = async (reqUser) => { 
-    
+module.exports.sellerProductsList = async (reqUser) => {
+
     let result = await sellerModel.aggregate([
         {
-            $match:  { user_id: ObjectId(reqUser.user_id) }
+            $match: { user_id: ObjectId(reqUser.user_id) }
         },
         {
 
@@ -62,6 +62,9 @@ module.exports.sellerProductsList = async (reqUser) => {
         },
         {
             $unwind: "$sellerShopName"
+        },
+        {
+            $match: { 'sellerShopName.productStatus': true }
         },
         {
             $project: {
@@ -80,7 +83,7 @@ module.exports.sellerProductsList = async (reqUser) => {
 
 
     ])
-        
+
     return result
 }
 
