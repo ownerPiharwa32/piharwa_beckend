@@ -9,6 +9,7 @@ const categoryController = require('../controllers/category-controller')
 const uploadController = require('../controllers/upload-controller')
 const buyersController = require('../controllers/buyer-controller')
 const commonController = require('../controllers/common-controller')
+const cartController = require('../controllers/cart-controller')
 
 const Auth = require('../middleware/auth');
 const { roles } = require('../constants/constants');
@@ -19,28 +20,29 @@ router.get('/', (req, res) => {
     })
 })
 
-router.post('/sellers/register', sellersController.sellersRegistration) 
-router.post('/user/login', sellersController.sellersLogin) 
+router.post('/sellers/register', sellersController.sellersRegistration)
+router.post('/user/login', sellersController.sellersLogin)
 
 
-router.post('/buyers/register', buyersController.buyersRegistration) 
-router.post('/buyers/login',buyersController.buyersLogin) 
-router.post('/buyers/verify/otp',buyersController.verifyOTP) 
+router.post('/buyers/register', buyersController.buyersRegistration)
+router.post('/buyers/login', buyersController.buyersLogin)
+router.post('/buyers/verify/otp', buyersController.verifyOTP)
 
 
 router.get('/category/list', categoryController.getCategoryDetails)
 router.post('/product/list', productController.productListing)
 router.get('/product/single-product/:id', productController.getSingleproduct)
 router.get('/product/featured-product/list', productController.getFeaturedProduct)
-    
+
 router.use(Auth.VerifyToken);
 
-router.get('/sellers/details', sellersController.sellerDetails) 
+router.get('/sellers/details', sellersController.sellerDetails)
 
 router.post('/category/add', Auth.restrictTo(roles.admin), categoryController.addCategoryDetails)
 router.put('/category/update', Auth.restrictTo(roles.admin), categoryController.updateCategoryDetails)
-router.post('/product/add',  Auth.restrictTo(roles.sellers), productController.addProductDetails)
+router.post('/product/add', Auth.restrictTo(roles.sellers), productController.addProductDetails)
 router.put('/product/update', Auth.restrictTo(roles.sellers), productController.updateProductDetails)
+router.put('/product/delete/:productId', Auth.restrictTo(roles.sellers, roles.admin), productController.deleteProduct)
 
 router.post('/product/upload/images/:productId/:default', upload.uploadFile.array('image', 6), uploadController.uploadProductImgs);
 router.post('/product/remove/images/:productId/:productImgId', uploadController.removeProductImgs);
@@ -53,8 +55,11 @@ router.get('/seller/product/list', sellersController.sellerProductsList)
 
 /************************* common Api's *******************************/
 
- router.post('/user/forget-password',commonController.forgetPassword) 
+router.post('/user/forget-password', commonController.forgetPassword)
 
+/************************* cart Api's *******************************/
 
+router.post('/cart/add/details', cartController.addProductInCart)
+router.get('/cart/list', cartController.cartListing)
 
 module.exports = router;

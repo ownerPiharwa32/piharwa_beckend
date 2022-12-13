@@ -62,3 +62,14 @@ module.exports.getFeaturedProduct = async function (req, res) {
         res.json({"status": false , "message": e.errors});
     }
 }
+
+
+module.exports.deleteProduct = async function (req, res) { 
+    try {
+      
+        const result = await productService.deleteProduct(req.user, req.params);
+        res.json({"status": result.status , "message": result.message });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}

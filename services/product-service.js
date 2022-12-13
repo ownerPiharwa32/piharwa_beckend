@@ -40,7 +40,9 @@ module.exports.productListing = async (reqBody) => {
   
     if (categoryId == '' && searchText == '') {
         reqObj = {
-            $match: {}
+            $match: {
+                productStatus: true
+            }
         }
         searchObj = {
             $match: {}
@@ -49,7 +51,8 @@ module.exports.productListing = async (reqBody) => {
     else if (categoryId) {
         reqObj = {
             $match: {
-                productCategoryID: ObjectId(categoryId)
+                productCategoryID: ObjectId(categoryId),
+                productStatus: true
             }
         }
         searchObj = {
@@ -58,7 +61,9 @@ module.exports.productListing = async (reqBody) => {
     }
     else if (searchText) {
         reqObj = {
-            $match: {}
+            $match: {
+                productStatus: true
+            }
         }
         searchObj = {
             $match: {
@@ -80,7 +85,8 @@ module.exports.productListing = async (reqBody) => {
     else if (categoryId != '' && searchText != '') { 
         reqObj = {
             $match: {
-                productCategoryID: ObjectId(categoryId)
+                productCategoryID: ObjectId(categoryId),
+                productStatus: true
             }
         }
 
@@ -162,7 +168,7 @@ module.exports.productListing = async (reqBody) => {
 }
 
 module.exports.getSingleproduct = async (reqParams) => {
-    let result = await productModel.findOne({_id: reqParams.id})
+    let result = await productModel.findOne({ _id: reqParams.id })
     return result
 }
 
@@ -217,4 +223,16 @@ module.exports.addFeaturedProduct = async (reqBody) => {
 module.exports.getFeaturedProduct = async () => {
     let result = await productModel.find({featuredProduct : true},{productImg: 1, price :1, currency:1, discountPrice:1 })
     return result
+}
+
+module.exports.deleteProduct = async (reqUser, reqParams) => {
+    await productModel.findByIdAndUpdate({ _id: reqParams.productId }, {
+        $set: {
+            productStatus: false
+        }
+    })
+    return {
+        status: true,
+        message: "Product Deleted Successfully!",
+    }
 }

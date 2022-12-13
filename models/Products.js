@@ -66,6 +66,10 @@ const productSchema = new Schema({
     },
     OverallRating: {
         type: Number
+    },
+    productStatus: {
+        type: Boolean,
+        default: true
     }
 }, {
     timestamps: true,

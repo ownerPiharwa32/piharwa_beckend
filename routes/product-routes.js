@@ -313,3 +313,29 @@
 */
 
 
+
+/**
+* @swagger
+* /api/v1/product/delete/{productId}:
+*   put:
+*     security:
+*       - bearerAuth: []  
+*     tags:
+*       - product-controller
+*     description: Delte Product by productId
+*     produces:
+*       - application/json
+*     parameters:
+*       - name: productId
+*         description: Product id
+*         in: path
+*         required: true
+*         type: string
+*     responses:
+*       200:
+*         description: Successfully Deleted
+*         content:
+*            application/json:
+*              schema:
+*                type: object
+*/
