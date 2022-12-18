@@ -222,7 +222,8 @@ module.exports.addFeaturedProduct = async (reqBody) => {
 
 
 module.exports.getFeaturedProduct = async () => {
-    let result = await productModel.find({featuredProduct : true},{productImg: 1, productTitle: 1}).limit(6)
+    let result = await productModel.find({ featuredProduct: true }, { thumbnailImgs: 1, productTitle: 1 }).limit(6)
+    result.productImg = result.thumbnailImgs[0]
     return result
 }
 
