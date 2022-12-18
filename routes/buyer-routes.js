@@ -231,3 +231,95 @@
 *              schema:
 *                type: object
 */
+
+
+
+
+
+/**
+* @swagger
+* definition:
+*   BuyerUpdateAddressDetails:
+*     properties:
+*       addressId:
+*         type: string
+*       firstName:
+*         type: string
+*       lastName:
+*         type: string
+*       mobileNo:
+*         type: string
+*       default:
+*         type: boolean
+*       address_line_one:
+*         type: string
+*       address_line_two:
+*         type: string
+*       landmark:
+*         type: string
+*       city:
+*         type: string
+*       state:
+*         type: string
+*       country:
+*         type: string
+*       pincode:
+*         type: string
+*
+*/
+
+
+
+/**
+* @swagger
+* /api/v1/buyer/edit/address/details:
+*   put:
+*     security:
+*       - bearerAuth: []  
+*     tags:
+*       - buyer-controller
+*     description: Update Buyer Address
+*     produces:
+*       - application/json
+*     parameters:
+*       - name: buyerAddress
+*         description: Update Buyer Address
+*         in: body
+*         schema:
+*           type: object
+*           $ref: '#/definitions/BuyerUpdateAddressDetails'
+*     responses:
+*       200:
+*         description: Successfully Updated
+*         content:
+*            application/json:
+*              schema:
+*                type: object
+*/
+
+
+
+/**
+ * @swagger
+ * /api/v1/buyer/delete/address/details/{addressId}:
+ *   delete:
+ *     security:
+ *       - bearerAuth: [] 
+ *     tags:
+ *       - buyer-controller
+ *     description: delete buyer Address
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: addressId
+ *         description: addressId of the buyer Address
+ *         in: path
+ *         required: true
+ *         type: string
+ *     responses:
+ *       200:
+ *         description: addressId of the buyer Address
+ *         content:
+ *            application/json:
+ *                type: object
+ */

@@ -48,10 +48,31 @@ module.exports.addAddreesDetails = async (req, res) => {
     }
 }
 
+
+module.exports.editAddreesDetails = async (req, res) => {
+    try {
+        const result = await buyerService.editAddreesDetails(req.user, req.body);
+        res.json({status: true , message: result.message });
+    } catch (e) {
+        console.log(e)
+        res.json({"status": false , "message": e});
+    }
+}
+
 module.exports.getAddreesDetails = async (req, res) => {
     try {
         const result = await buyerService.getAddreesDetails(req.user, req.body);
         res.json({"status": true , "message": result.message, "data": result.data });
+    } catch (e) {
+        console.log(e)
+        res.json({"status": false , "message": e});
+    }
+}
+
+module.exports.deleteAddreesDetails = async (req, res) => { 
+    try {
+        const result = await buyerService.deleteAddreesDetails(req.user, req.params);
+        res.json({"status": true , "message": result.message });
     } catch (e) {
         console.log(e)
         res.json({"status": false , "message": e});
