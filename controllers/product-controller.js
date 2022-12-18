@@ -57,7 +57,7 @@ module.exports.getFeaturedProduct = async function (req, res) {
     try {
       
         const result = await productService.getFeaturedProduct();
-        res.json({"status": result.status , "message": result.message , data: result });
+        res.json({"status": result.status , "message": result.message , data: result.data });
     } catch (e) {
         res.json({"status": false , "message": e.errors});
     }

@@ -222,9 +222,28 @@ module.exports.addFeaturedProduct = async (reqBody) => {
 
 
 module.exports.getFeaturedProduct = async () => {
-    let result = await productModel.find({ featuredProduct: true }, { thumbnailImgs: 1, productTitle: 1 }).limit(6)
-    result.productImg = result.thumbnailImgs[0]
-    return result
+    try {
+        let productArr = []
+        let fProduct = await productModel.find({ featuredProduct: true }, { "thumbnailImgs": { $slice: 1 }, 'thumbnailImgs[0]': 1, productTitle: 1 }).limit(6)
+        for (let i = 0; i < fProduct.length; i++) {
+            const fProducts = fProduct[i];
+            let productObj = {
+                id: fProducts._id,
+                productTitle: fProducts.productTitle,
+                productImg: fProducts.thumbnailImgs[0]
+            }
+            productArr.push(productObj)
+        }
+        return {
+            status: true,
+            message: "Address Deleted Successfully",
+            data: productArr
+          }
+            
+    } catch (e) {
+        return { "status": false, "message": "There is no featured Products are selected" }
+    }
+
 }
 
 module.exports.deleteProduct = async (reqUser, reqParams) => {
