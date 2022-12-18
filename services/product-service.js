@@ -222,7 +222,7 @@ module.exports.addFeaturedProduct = async (reqBody) => {
 
 
 module.exports.getFeaturedProduct = async () => {
-    let result = await productModel.find({featuredProduct : true},{productImg: 1, price :1, currency:1, discountPrice:1 })
+    let result = await productModel.find({featuredProduct : true},{productImg: 1, productTitle: 1}).limit(6)
     return result
 }
 
