@@ -141,3 +141,93 @@
  *              schema:
  *                type: object
  */
+
+
+
+
+
+
+
+
+
+
+/**
+* @swagger
+* definition:
+*   BuyerAddressDetails:
+*     properties:
+*       firstName:
+*         type: string
+*       lastName:
+*         type: string
+*       mobileNo:
+*         type: string
+*       address_line_one:
+*         type: string
+*       address_line_two:
+*         type: string
+*       landmark:
+*         type: string
+*       city:
+*         type: string
+*       state:
+*         type: string
+*       country:
+*         type: string
+*       pincode:
+*         type: string
+*
+*/
+
+
+/**
+ * @swagger
+ * /api/v1/buyer/add/address/details:
+ *   post:
+ *     security:
+ *       - bearerAuth: [] 
+ *     tags:
+ *       - buyer-controller
+ *     description: Create Buyer Account Details
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: BuyerDetails
+ *         description: BuyerDetails object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/BuyerAddressDetails'
+ *     responses:
+ *       200:
+ *         description: Successfully Created
+ *         content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ */
+
+
+
+
+
+/**
+* @swagger
+* /api/v1/buyer/list/address/details:
+*   get:
+*     security:
+*       - bearerAuth: []  
+*     tags:
+*       - buyer-controller
+*     description: Get Buyer Address
+*     produces:
+*       - application/json
+*     responses:
+*       200:
+*         description: Successfully Fetched
+*         content:
+*            application/json:
+*              schema:
+*                type: object
+*/

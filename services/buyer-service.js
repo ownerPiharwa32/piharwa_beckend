@@ -1,11 +1,13 @@
 const userModel = require('../models/users')
 const buyerModel = require('../models/buyers')
+const addressModel = require('../models/addressDetail')
 const commonService = require('./common-service');
 const otpTokenService = require('./otpToken-service')
 const bcrypt = require("bcrypt");
 const config = require("../config/config");
 const emailTemplate = require("../constants/emailTemplates")
 const moment = require('moment'); 
+const { ObjectId } = require('mongodb');
 
 module.exports.buyersRegistration = async function (reqBody) {
   reqBody.role = 'buyers';
@@ -105,4 +107,38 @@ module.exports.verifyOTP = async (reqBody) => {
         return {"status": false , "message": "EmailId/mobileNo is Invalid!"}
   }
 
+}
+
+
+
+module.exports.addAddreesDetails = async (reqUser, reqBody) => {
+  try {
+    reqBody.user_id = ObjectId(reqUser.user_id)
+    let addressDetails = await addressModel.findOneAndUpdate({ "user_id": reqUser.user_id, "default": true }, {
+      $set: {"default" : false}
+    })
+    let result = await addressModel.create(reqBody)
+    return {
+      status: true,
+      message: "Address Updated Successfully"
+      }
+  } catch (e) {
+    return {"status": false , "message": "Please Provide Valid Address Details"}
+  }
+}
+
+
+module.exports.getAddreesDetails = async (reqUser, reqBody) => {
+  try {
+    reqBody.user_id = ObjectId(reqUser.user_id)
+    let result = await addressModel.find({ "user_id": ObjectId(reqUser.user_id) })
+    
+    return {
+      status: true,
+      message: "Address List Fetched Successfully",
+      data: result
+      }
+  } catch (e) {
+    return {"status": false , "message": "You Don't have any Address Details"}
+  }
 }

@@ -169,6 +169,7 @@ module.exports.productListing = async (reqBody) => {
 
 module.exports.getSingleproduct = async (reqParams) => {
     let result = await productModel.findOne({ _id: reqParams.id })
+    result.productImg = result.thumbnailImgs[0]
     return result
 }
 

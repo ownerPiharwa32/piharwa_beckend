@@ -62,4 +62,10 @@ router.post('/user/forget-password', commonController.forgetPassword)
 router.post('/cart/add/details', cartController.addProductInCart)
 router.get('/cart/list', cartController.cartListing)
 
+
+/************************* Buyer Api's *******************************/
+
+router.post('/buyer/add/address/details', buyersController.addAddreesDetails)
+router.get('/buyer/list/address/details', buyersController.getAddreesDetails)
+
 module.exports = router;

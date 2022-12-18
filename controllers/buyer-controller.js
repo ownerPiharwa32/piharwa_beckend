@@ -36,3 +36,24 @@ module.exports.verifyOTP = async (req, res) => {
         res.json({"status": false , "message": e});
     }
 }
+
+
+module.exports.addAddreesDetails = async (req, res) => {
+    try {
+        const result = await buyerService.addAddreesDetails(req.user, req.body);
+        res.json({status: true , message: result.message });
+    } catch (e) {
+        console.log(e)
+        res.json({"status": false , "message": e});
+    }
+}
+
+module.exports.getAddreesDetails = async (req, res) => {
+    try {
+        const result = await buyerService.getAddreesDetails(req.user, req.body);
+        res.json({"status": true , "message": result.message, "data": result.data });
+    } catch (e) {
+        console.log(e)
+        res.json({"status": false , "message": e});
+    }
+}
