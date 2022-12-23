@@ -5,8 +5,8 @@ const config = {
     swaggerHostname: process.env.SWAGGER_HOSTNAME
   },
   database: {
-       url: `mongodb://localhost:27017/piharwaDB`,
-    //  url: `mongodb+srv://piharwaDB:piharwaDBpass@cluster0.mx6skd3.mongodb.net/piharwaDB?retryWrites=true&w=majority`
+      // url: `mongodb://localhost:27017/piharwaDB`,
+      url: `mongodb+srv://piharwaDB:piharwaDBpass@cluster0.mx6skd3.mongodb.net/piharwaDB?retryWrites=true&w=majority`
   },
   whitelist: { whitelist_url: ['http://localhost:3000', 'http://localhost:3001','http://localhost:4200', 'http://localhost:8080', 'http://piharwa.co.in', 'http://3.22.167.33:3000' ] },
     
