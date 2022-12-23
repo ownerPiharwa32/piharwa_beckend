@@ -13,6 +13,47 @@
 
 
 
+/**
+* @swagger
+* definition:
+*   BuyerListDetails:
+*     properties:
+*       pageNo:
+*         type: integer
+*       noRecord:
+*         type: integer
+*
+*/
+
+
+/**
+ * @swagger
+ * /api/v1/buyer/list/details:
+ *   post:
+ *     security:
+ *       - bearerAuth: [] 
+ *     tags:
+ *       - buyer-controller
+ *     description: List Buyer Details
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: BuyerDetails
+ *         description: BuyerDetails object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/BuyerListDetails'
+ *     responses:
+ *       200:
+ *         description: Successfully Created
+ *         content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ */
+
 
 /**
 * @swagger

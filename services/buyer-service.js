@@ -180,12 +180,62 @@ module.exports.getAddreesDetails = async (reqUser, reqBody) => {
 
 module.exports.deleteAddreesDetails = async (reqUser, reqParams) => {
   try {
-    await addressModel.remove({user_id: reqUser.user_id, _id: reqParams.addressId})
+    await addressModel.remove({ user_id: reqUser.user_id, _id: reqParams.addressId })
     return {
       status: true,
       message: "Address Deleted Successfully",
     }
   } catch (e) {
     return { "status": false, "message": "You Don't have any Address Details" }
+  }
+}
+
+
+module.exports.listDetails = async (reqBody) => {
+  try {
+    const page = reqBody.pageNo * 1 || 1;
+    const limit = reqBody.noRecord * 1 || 10;
+    const skip = (page - 1) * limit;
+
+    let buyerDetails = await buyerModel.aggregate([{
+      $lookup: {
+        from: "users",
+        localField: "user_id",
+        foreignField: "_id",
+        as: "buyers"
+      }
+    },
+    {
+      $unwind: "$buyers"
+    },
+    {
+      $project: {
+        user_id: 1,
+        firstName: 1,
+        lastName: 1,
+        emailId: '$buyers.emailId',
+        mobileNo: '$buyers.mobileNo'
+      }
+    }
+
+    ])
+
+
+    const paginatedItems = buyerDetails.slice(skip).slice(0, limit);
+    const total = buyerDetails.length
+    const total_pages = Math.ceil(total / limit)
+
+    return {
+      status: true,
+      message: "Buyer List Fetched Successfully",
+      data: {
+        per_page: limit,
+        total: total,
+        total_pages: total_pages,
+        buyerList: paginatedItems
+    }
+    }
+  } catch (e) {
+    return { "status": false, "message": "Buyers List are not Available" }
   }
 }
