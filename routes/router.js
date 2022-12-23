@@ -10,6 +10,7 @@ const uploadController = require('../controllers/upload-controller')
 const buyersController = require('../controllers/buyer-controller')
 const commonController = require('../controllers/common-controller')
 const cartController = require('../controllers/cart-controller')
+const checkoutController = require('../controllers/checkout-controller')
 
 const Auth = require('../middleware/auth');
 const { roles } = require('../constants/constants');
@@ -70,5 +71,8 @@ router.post('/buyer/add/address/details', buyersController.addAddreesDetails)
 router.put('/buyer/edit/address/details', buyersController.editAddreesDetails)
 router.get('/buyer/list/address/details', buyersController.getAddreesDetails)
 router.delete('/buyer/delete/address/details/:addressId', buyersController.deleteAddreesDetails)
+
+router.post('/checkout/order/create', checkoutController.createOrderDetails)
+router.post('/checkout/payment/verify', checkoutController.paymentVerify)
 
 module.exports = router;
