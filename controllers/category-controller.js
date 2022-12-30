@@ -1,6 +1,15 @@
 
 const categoryService = require('../services/category-service')
 
+module.exports.addMNCategoryDetails = async function (req, res) { 
+    try {
+        const result = await categoryService.addMNCategoryDetails(req.body);
+        res.json({"status": true , "message": "Category Added Successfully!" , data: result });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}
+
 module.exports.addCategoryDetails = async function (req, res) { 
     try {
         const result = await categoryService.addCategoryDetails(req.body);
@@ -13,7 +22,16 @@ module.exports.addCategoryDetails = async function (req, res) {
 
 module.exports.getCategoryDetails = async function (req, res) {
     try {
-        const result = await categoryService.getAllCategory();
+        const result = await categoryService.getAllCategory(req.params);
+        res.json({"status": true , "message": "Fetch All Categories Successfully!" , data: result });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}
+
+module.exports.getMNCategoryDetails = async function (req, res) {
+    try {
+        const result = await categoryService.getMNCategoryDetails();
         res.json({"status": true , "message": "Fetch All Categories Successfully!" , data: result });
     } catch (e) {
         res.json({"status": false , "message": e.errors});

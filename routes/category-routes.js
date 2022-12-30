@@ -16,8 +16,62 @@
 /**
  * @swagger
  * definition:
+ *   MainCategoryDetails:
+ *     properties:
+ *       categoryTitle:
+ *         type: string
+ *       slug:
+ *         type: string
+ * 
+ */
+
+
+
+
+/**
+ * @swagger
+ * /api/v1/main/category/add:
+ *   post:
+ *     security:
+ *       - bearerAuth: []  
+ *     tags:
+ *       - category-controller
+ *     description: Add Main Category Details
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: CategoryDetails
+ *         description: CategoryDetails object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/MainCategoryDetails'
+ *     responses:
+ *       200:
+ *         description: Successfully logged in
+ *         content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ */
+
+
+
+
+
+
+
+
+
+
+/**
+ * @swagger
+ * definition:
  *   CategoryDetails:
  *     properties:
+ *       rootCategory:
+ *         type: string
  *       categoryTitle:
  *         type: string
  *       slug:
@@ -59,10 +113,9 @@
  */
 
 
-
 /**
 * @swagger
-* /api/v1/category/list:
+* /api/v1/main/category/list:
 *   get:
 *     tags:
 *       - category-controller
@@ -79,12 +132,39 @@
 */  
 
 
+/**
+* @swagger
+* /api/v1/category/list/{rootCatId}:
+*   get:
+*     tags:
+*       - category-controller
+*     description: Get Category List
+*     produces:
+*       - application/json
+*     parameters:
+*       - name: rootCatId
+*         description: Main Category id
+*         in: path
+*         required: true
+*         type: string
+*     responses:
+*       200:
+*         description: Successfully Fetched
+*         content:
+*            application/json:
+*              schema:
+*                type: object
+*/  
+
+
 
  /**
  * @swagger
  * definition:
  *   CategoryDetailsObj:
  *     properties:
+ *       rootCategory:
+ *         type: string
  *       categoryId:
  *         type: string
  *       categoryTitle:

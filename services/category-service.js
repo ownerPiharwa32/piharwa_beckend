@@ -1,18 +1,32 @@
 
 const categoryModel = require('../models/category')
+const mainCategoryModel = require('../models/mainCat')
+const { ObjectId } = require('mongodb');
+
+module.exports.addMNCategoryDetails = async (reqBody) => {
+    let result = await mainCategoryModel.create(reqBody)
+    return result
+}
 
 module.exports.addCategoryDetails = async (reqBody) => {
     let result = await categoryModel.create(reqBody)
     return result
 }
 
-
-
-module.exports.getAllCategory = async () => {
+module.exports.getAllCategory = async (reqParams) => {
     try {
-        const categories = await categoryModel.find({});
+        const categories = await categoryModel.find({rootCategory: ObjectId(reqParams.rootCatId)});
         if (!categories) return [];
         let result = await this.nestedCategories(categories);
+        return result
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+module.exports.getMNCategoryDetails = async () => {
+    try {
+        let result = await mainCategoryModel.find();
         return result
     } catch (err) {
         console.log(err);
@@ -43,11 +57,12 @@ module.exports.nestedCategories = async(categories, parentId = null) => {
 
 
 module.exports.updateCategoryDetails = async (reqBody) => { 
+    let rootCatId = reqBody.rootCategory
     let categoryId = reqBody.categoryId
     let categoryTitle = reqBody.categoryTitle
     let slug = reqBody.slug
     let parentCategoryId = reqBody.parentCategoryId
     let result = await categoryModel.findOneAndUpdate({"_id" : categoryId },
-        { $set: { categoryTitle: categoryTitle, slug: slug, parentCategoryId: parentCategoryId } })
+        { $set: { rootCategory: ObjectId(rootCatId), categoryTitle: categoryTitle, slug: slug, parentCategoryId: parentCategoryId } })
     return result
 }

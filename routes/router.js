@@ -29,8 +29,8 @@ router.post('/buyers/register', buyersController.buyersRegistration)
 router.post('/buyers/login', buyersController.buyersLogin)
 router.post('/buyers/verify/otp', buyersController.verifyOTP)
 
-
-router.get('/category/list', categoryController.getCategoryDetails)
+router.get('/main/category/list', categoryController.getMNCategoryDetails)
+router.get('/category/list/:rootCatId', categoryController.getCategoryDetails)
 router.post('/product/list', productController.productListing)
 router.get('/product/single-product/:id', productController.getSingleproduct)
 router.get('/product/featured-product/list', productController.getFeaturedProduct)
@@ -38,6 +38,8 @@ router.get('/product/featured-product/list', productController.getFeaturedProduc
 router.use(Auth.VerifyToken);
 
 router.get('/sellers/details', sellersController.sellerDetails)
+
+router.post('/main/category/add', Auth.restrictTo(roles.admin), categoryController.addMNCategoryDetails)
 
 router.post('/category/add', Auth.restrictTo(roles.admin), categoryController.addCategoryDetails)
 router.put('/category/update', Auth.restrictTo(roles.admin), categoryController.updateCategoryDetails)

@@ -5,11 +5,7 @@ const constants = require('../constants/constants');
 const roles = constants.roles;
 const { ObjectId } = require('mongodb');
 
-const categorySchema = new Schema({
-    rootCategory: {
-        type: Schema.Types.ObjectId,
-        ref: "users",
-    },
+const rootcatSchema = new Schema({
     categoryTitle: {
         type: String,
         unique: true
@@ -18,16 +14,10 @@ const categorySchema = new Schema({
         type: String,
         unique: true
     },
-    parentCategoryId: {
-        type: Schema.Types.ObjectId,
-        default: null
-    },
 }, {
     timestamps: true,
 })
 
 
-
-
-const Categories = mongoose.model("categories", categorySchema);
-module.exports = Categories;
+const MnCategories = mongoose.model("maincategories", rootcatSchema);
+module.exports = MnCategories;
