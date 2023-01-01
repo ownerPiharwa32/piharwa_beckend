@@ -32,6 +32,7 @@ module.exports.productListing = async (reqBody) => {
     const page = reqBody.page_no * 1 || 1;
     const limit = reqBody.no_record * 1 || 10;
     const skip = (page - 1) * limit;
+    const rootCategoryId = reqBody.rootCatId
     const categoryId = reqBody.productCategoryID
     const searchText = reqBody.searchText
     let reqObj
@@ -41,7 +42,8 @@ module.exports.productListing = async (reqBody) => {
     if (categoryId == '' && searchText == '') {
         reqObj = {
             $match: {
-                productStatus: true
+                productStatus: true,
+                rootCategoryId: ObjectId(rootCategoryId)
             }
         }
         searchObj = {
@@ -51,6 +53,7 @@ module.exports.productListing = async (reqBody) => {
     else if (categoryId) {
         reqObj = {
             $match: {
+                rootCategoryId: ObjectId(rootCategoryId),
                 productCategoryID: ObjectId(categoryId),
                 productStatus: true
             }
@@ -62,6 +65,7 @@ module.exports.productListing = async (reqBody) => {
     else if (searchText) {
         reqObj = {
             $match: {
+                rootCategoryId: ObjectId(rootCategoryId),
                 productStatus: true
             }
         }
@@ -85,6 +89,7 @@ module.exports.productListing = async (reqBody) => {
     else if (categoryId != '' && searchText != '') { 
         reqObj = {
             $match: {
+                rootCategoryId: ObjectId(rootCategoryId),
                 productCategoryID: ObjectId(categoryId),
                 productStatus: true
             }

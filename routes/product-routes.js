@@ -98,6 +98,8 @@
  *         type: integer
  *       no_record:
  *         type: integer
+ *       rootCatId:
+ *         type: string
  *       productCategoryID:
  *         type: string
  *       searchText:
