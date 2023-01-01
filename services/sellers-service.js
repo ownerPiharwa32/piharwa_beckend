@@ -65,7 +65,20 @@ module.exports.sellerProductsList = async (reqUser) => {
         },
         {
             $match: { 'sellerShopName.productStatus': true }
+        }, 
+        {
+
+            $lookup: {
+                from: "maincategories",
+                localField: "sellerShopName.rootCategoryId",
+                foreignField: "_id",
+                as: "mainCategory"
+            }
         },
+        {
+            $unwind: "$mainCategory"
+        }, 
+        
         {
             $project: {
                 productId: "$sellerShopName._id",
@@ -74,6 +87,8 @@ module.exports.sellerProductsList = async (reqUser) => {
                 productSKU: "$sellerShopName.productSKU",
                 price: "$sellerShopName.price",
                 currency: "$sellerShopName.currency",
+                rootCategoryId: "$sellerShopName.rootCategoryId",
+                rootCategoryName: "$mainCategory.categoryTitle",
                 featuredProduct: "$sellerShopName.featuredProduct",
                 createdAt: 1,
                 updatedAt: 1
