@@ -68,6 +68,7 @@ router.get('/cart/list', cartController.cartListing)
 
 /************************* Buyer Api's *******************************/
 
+router.get('/buyers/details', buyersController.buyersDetails)
 router.post('/buyer/list/details',  Auth.restrictTo(roles.admin), buyersController.listDetails)
 router.post('/buyer/add/address/details', buyersController.addAddreesDetails)
 router.put('/buyer/edit/address/details', buyersController.editAddreesDetails)

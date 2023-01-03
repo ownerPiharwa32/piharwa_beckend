@@ -12,6 +12,27 @@
  */
 
 
+/**
+* @swagger
+* /api/v1/buyers/details:
+*   get:
+*     security:
+*       - bearerAuth: []  
+*     tags:
+*       - buyer-controller
+*     description: Get Buyer Details
+*     produces:
+*       - application/json
+*     responses:
+*       200:
+*         description: Successfully Fetched
+*         content:
+*            application/json:
+*              schema:
+*                type: object
+*/
+
+
 
 /**
 * @swagger

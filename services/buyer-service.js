@@ -28,7 +28,14 @@ module.exports.buyersRegistration = async function (reqBody) {
 }
 
 
-
+module.exports.buyersDetails = async function (reqUser) {
+  let user = await userModel.findOne({ _id: ObjectId(reqUser.user_id), role: "buyers" },{firstName: 1, lastName: 1, mobileNo: 1, emailId: 1, role: 1})
+  return {
+    status: true,
+    message: "User fetch Successfully",
+    data: user
+  }
+}
 
 module.exports.buyersLogin = async function (reqBody) {
   let username = reqBody.username
@@ -233,7 +240,7 @@ module.exports.listDetails = async (reqBody) => {
         total: total,
         total_pages: total_pages,
         buyerList: paginatedItems
-    }
+      }
     }
   } catch (e) {
     return { "status": false, "message": "Buyers List are not Available" }

@@ -11,6 +11,17 @@ module.exports.buyersRegistration = async function (req, res) {
     }
 }
 
+module.exports.buyersDetails = async function (req, res) {
+    try {
+        const result = await buyerService.buyersDetails(req.user);
+        res.json({"status": true , "message": result.message, "data": result.data });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}
+
+
+
 module.exports.listDetails = async function (req, res) {
     try {
         const result = await buyerService.listDetails(req.body);
