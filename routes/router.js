@@ -34,6 +34,7 @@ router.get('/category/list/:rootCatId', categoryController.getCategoryDetails)
 router.post('/product/list', productController.productListing)
 router.get('/product/single-product/:id', productController.getSingleproduct)
 router.get('/product/featured-product/list', productController.getFeaturedProduct)
+router.get('/product/latest-arrival/list', productController.getLatestProduct)
 
 router.use(Auth.VerifyToken);
 

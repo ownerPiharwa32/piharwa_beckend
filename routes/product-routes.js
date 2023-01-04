@@ -314,6 +314,27 @@
 *                type: object
 */
 
+/**
+* @swagger
+* /api/v1/product/latest-arrival/list:
+*   get:
+*     tags:
+*       - product-controller
+*     description: Get Latest Products
+*     produces:
+*       - application/json
+*     responses:
+*       200:
+*         description: Successfully Fetched
+*         content:
+*            application/json:
+*              schema:
+*                type: object
+*/
+
+
+
+
 
 
 /**

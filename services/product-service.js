@@ -229,7 +229,7 @@ module.exports.addFeaturedProduct = async (reqBody) => {
 module.exports.getFeaturedProduct = async () => {
     try {
         let productArr = []
-        let fProduct = await productModel.find({ featuredProduct: true }, { "thumbnailImgs": { $slice: 1 }, 'thumbnailImgs[0]': 1, productTitle: 1 }).limit(6)
+        let fProduct = await productModel.find({ featuredProduct: true, productStatus: true }, { "thumbnailImgs": { $slice: 1 }, 'thumbnailImgs[0]': 1, productTitle: 1 }).limit(6)
         for (let i = 0; i < fProduct.length; i++) {
             const fProducts = fProduct[i];
             let productObj = {
@@ -241,7 +241,7 @@ module.exports.getFeaturedProduct = async () => {
         }
         return {
             status: true,
-            message: "Address Deleted Successfully",
+            message: "Featured Products Fecthed Successfully",
             data: productArr
           }
             
@@ -250,6 +250,30 @@ module.exports.getFeaturedProduct = async () => {
     }
 
 }
+
+
+module.exports.getLatestProduct = async () => {
+    let productArr = []
+    let lProduct = await productModel.find({ productStatus: true }, { "thumbnailImgs": { $slice: 1 }, 'thumbnailImgs[0]': 1, productTitle: 1 }).sort( { "createdAt": -1 } )
+        .limit(4)
+    
+    for (let i = 0; i < lProduct.length; i++) {
+        const lProducts = lProduct[i];
+        let productObj = {
+            id: lProducts._id,
+            productTitle: lProducts.productTitle,
+            productImg: lProducts.thumbnailImgs[0]
+        }
+        productArr.push(productObj)
+    }
+    return {
+        status: true,
+        message: "Latest Products Fetched Successfully",
+        data: productArr
+      }
+}
+
+
 
 module.exports.deleteProduct = async (reqUser, reqParams) => {
     await productModel.findByIdAndUpdate({ _id: reqParams.productId }, {

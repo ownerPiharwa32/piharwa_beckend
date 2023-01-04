@@ -63,6 +63,15 @@ module.exports.getFeaturedProduct = async function (req, res) {
     }
 }
 
+module.exports.getLatestProduct = async function (req, res) { 
+    try {
+      
+        const result = await productService.getLatestProduct();
+        res.json({"status": result.status , "message": result.message , data: result.data });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}
 
 module.exports.deleteProduct = async function (req, res) { 
     try {
