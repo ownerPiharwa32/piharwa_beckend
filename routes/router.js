@@ -11,6 +11,7 @@ const buyersController = require('../controllers/buyer-controller')
 const commonController = require('../controllers/common-controller')
 const cartController = require('../controllers/cart-controller')
 const checkoutController = require('../controllers/checkout-controller')
+const blogController = require('../controllers/blog-controller')
 
 const Auth = require('../middleware/auth');
 const { roles } = require('../constants/constants');
@@ -35,6 +36,8 @@ router.post('/product/list', productController.productListing)
 router.get('/product/single-product/:id', productController.getSingleproduct)
 router.get('/product/featured-product/list', productController.getFeaturedProduct)
 router.get('/product/latest-arrival/list', productController.getLatestProduct)
+router.get('/blog/list', blogController.getBlogList)
+router.get('/blog/single-blog/:id', blogController.getSingleblog)
 
 router.use(Auth.VerifyToken);
 
@@ -78,5 +81,11 @@ router.delete('/buyer/delete/address/details/:addressId', buyersController.delet
 
 router.post('/checkout/order/create', checkoutController.createOrderDetails)
 router.post('/checkout/payment/verify', checkoutController.paymentVerify)
+
+
+/************************* Blog Api's *******************************/
+
+router.post('/blog/add/details', Auth.restrictTo(roles.sellers, roles.admin), blogController.createBlogDetails)
+
 
 module.exports = router;
