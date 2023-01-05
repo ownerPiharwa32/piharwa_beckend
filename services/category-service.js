@@ -47,7 +47,7 @@ module.exports.nestedCategories = async(categories, parentId = null) => {
     for (let cate of category) {
         categoryList.push({
             _id: cate._id,
-            categoryTitle: cate.categoryTitle,
+            name: cate.name,
             slug: cate.slug,
             children: await this.nestedCategories(categories, cate._id)
         })
@@ -59,10 +59,10 @@ module.exports.nestedCategories = async(categories, parentId = null) => {
 module.exports.updateCategoryDetails = async (reqBody) => { 
     let rootCatId = reqBody.rootCategory
     let categoryId = reqBody.categoryId
-    let categoryTitle = reqBody.categoryTitle
+    let name = reqBody.name
     let slug = reqBody.slug
     let parentCategoryId = reqBody.parentCategoryId
     let result = await categoryModel.findOneAndUpdate({"_id" : categoryId },
-        { $set: { rootCategory: ObjectId(rootCatId), categoryTitle: categoryTitle, slug: slug, parentCategoryId: parentCategoryId } })
+        { $set: { rootCategory: ObjectId(rootCatId), name: name, slug: slug, parentCategoryId: parentCategoryId } })
     return result
 }
