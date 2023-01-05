@@ -10,7 +10,7 @@ const categorySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "users",
     },
-    categoryTitle: {
+    name: {
         type: String,
         unique: true
     },
