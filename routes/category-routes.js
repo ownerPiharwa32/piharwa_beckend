@@ -18,7 +18,7 @@
  * definition:
  *   MainCategoryDetails:
  *     properties:
- *       categoryTitle:
+ *       name:
  *         type: string
  *       slug:
  *         type: string
@@ -72,7 +72,7 @@
  *     properties:
  *       rootCategory:
  *         type: string
- *       categoryTitle:
+ *       name:
  *         type: string
  *       slug:
  *         type: string
@@ -167,7 +167,7 @@
  *         type: string
  *       categoryId:
  *         type: string
- *       categoryTitle:
+ *       name:
  *         type: string 
  *       slug: 
  *         type: string
