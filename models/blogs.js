@@ -11,6 +11,12 @@ const blogSchema = new Schema({
     blogTitle: {
         type:String,
     },
+    featured_img: {
+        type: String,  
+    },
+    featured_content: {
+        type: String,
+    },
     blogDescription: {
         type:String,
     },

@@ -19,6 +19,10 @@
 *     properties:
 *       blogTitle:
 *         type: string
+*       featured_img:
+*         type: string
+*       featured_content:
+*         type: string
 *       blogDescription:
 *         type: string
 *
