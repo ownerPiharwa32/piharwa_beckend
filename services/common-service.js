@@ -87,3 +87,13 @@ module.exports.sendMail = async (mailObj) => {
         }
       });
 }
+
+
+module.exports.logout = async (reqUser, user_token) => {
+    let user_id = reqUser.user_id;
+    const token = await tokenModel.findOneAndUpdate({ user_id: user_id, accessToken: user_token }, {$set:{ accessToken: "", refreshtoken: "" }});
+    return {
+        status: true,
+        message: "Logged out successfully!",
+    };
+};

@@ -9,3 +9,15 @@ module.exports.forgetPassword = async (req, res) => {
         res.json({"status": false , "message": e});        
     }
 }
+
+module.exports.logout = async (req, res, next) => {
+    try {
+        const result = await commonService.logout(req.user, req.token);
+        if (result.status) {
+            res.json({ status: result.status, message: result.message })
+        } 
+    } catch (e) {
+        console.log(e)
+        res.json({"status": false , "message": e});        
+    }
+};

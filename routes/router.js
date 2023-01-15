@@ -41,6 +41,7 @@ router.get('/blog/single-blog/:id', blogController.getSingleblog)
 
 router.use(Auth.VerifyToken);
 
+router.post('/logout', commonController.logout);
 router.get('/sellers/details', sellersController.sellerDetails)
 
 router.post('/main/category/add', Auth.restrictTo(roles.admin), categoryController.addMNCategoryDetails)
