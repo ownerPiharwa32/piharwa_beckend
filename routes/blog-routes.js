@@ -108,3 +108,51 @@
 
 
 
+
+/**
+* @swagger
+* definition:
+*   UpdateBlogDetails:
+*     properties:
+*       blogID:
+*         type: string
+*       blogTitle:
+*         type: string
+*       featured_img:
+*         type: string
+*       featured_content:
+*         type: string
+*       blogDescription:
+*         type: string
+*
+*/
+
+
+/**
+ * @swagger
+ * /api/v1/blog/update/details:
+ *   put:
+ *     security:
+ *       - bearerAuth: [] 
+ *     tags:
+ *       - blog-controller
+ *     description: Update Blog Details
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: BlogDetails
+ *         description: BlogDetails object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/UpdateBlogDetails'
+ *     responses:
+ *       200:
+ *         description: Successfully Created
+ *         content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ */
+

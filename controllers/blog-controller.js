@@ -26,3 +26,12 @@ module.exports.getSingleblog = async function (req, res) {
         res.json({"status": false , "message": e.errors});
     }
 }
+
+module.exports.updateBlogDetails = async function (req, res) { 
+    try {
+        const result = await blogService.updateBlogDetails(req.user, req.body);
+        res.json({"status": result.status , "message": result.message , data: result.data });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}

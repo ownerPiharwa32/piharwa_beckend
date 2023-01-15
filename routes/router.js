@@ -87,5 +87,6 @@ router.post('/checkout/payment/verify', checkoutController.paymentVerify)
 
 router.post('/blog/add/details', Auth.restrictTo(roles.sellers, roles.admin), blogController.createBlogDetails)
 
+router.put('/blog/update/details', Auth.restrictTo(roles.sellers, roles.admin), blogController.updateBlogDetails)
 
 module.exports = router;

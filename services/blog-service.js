@@ -28,3 +28,12 @@ module.exports.getSingleblog = async (reqParams) => {
         data: result
     }
 }
+
+module.exports.updateBlogDetails = async (reqUser, reqBody) => {
+    reqBody.user_id = ObjectId(reqUser.user_id)
+    await blogModel.findOneAndUpdate({ "_id": reqBody.blogID }, { $set: { blogTitle: reqBody.blogTitle, blogDescription: reqBody.blogDescription, featured_content: reqBody.featured_content, featured_img: reqBody.featured_img } })
+    return {
+        status: true,
+        message: 'Blog Updated Successfully'
+    }
+}
