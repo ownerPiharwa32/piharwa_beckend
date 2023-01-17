@@ -82,3 +82,13 @@ module.exports.deleteProduct = async function (req, res) {
         res.json({"status": false , "message": e.errors});
     }
 }
+
+
+module.exports.productCatListing = async function (req, res) { 
+    try {
+        const result = await productService.productCatListing(req.body);
+        res.json({"status": result.status , "message": result.message , data: result.data });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}

@@ -1,6 +1,8 @@
 const sellerModel = require('../models/sellers')
 const userModel = require('../models/users')
 const productModel = require('../models/Products')
+const categoryModel = require('../models/category')
+const mainCategoryModel = require('../models/mainCat')
 const { ObjectId } = require('mongodb');
 
 module.exports.addProduct = async (reqUser, reqBody) => {
@@ -285,4 +287,58 @@ module.exports.deleteProduct = async (reqUser, reqParams) => {
         status: true,
         message: "Product Deleted Successfully!",
     }
+}
+
+module.exports.productCatListing = async (reqBody) => { 
+    console.log(reqBody)
+    const page = reqBody.page_no * 1 || 1;
+    const limit = reqBody.no_record * 1 || 10;
+    const skip = (page - 1) * limit;
+
+    let result = await categoryModel.aggregate([
+        { $match: {"parentCategoryId" : ObjectId("63c41db98d9d782465bd15ec")}},
+           {
+                 $lookup: {
+                     from: "products",
+                     localField: "_id",
+                     foreignField: "productCategoryID",
+                     as: "productData"
+                 }
+         },
+         {
+                 $unwind: "$productData"
+             },
+        
+        {
+                          $project: {
+                              productID: "$productData._id",
+                              productTitle: "$productData.productTitle",
+                              productCategoryID: "$productData.productCategoryID" ,
+                              price: "$productData.price",
+                              currency: "$productData.currency",
+                              productImg: { $arrayElemAt: [ "$productData.thumbnailImgs", 0 ] },
+                              },
+                         
+             },
+        
+    ])
+    
+
+    const paginatedItems = result.slice(skip).slice(0, limit);
+    const total = result.length
+    const total_pages = Math.ceil(total / limit)
+
+    return {
+        status: true,
+        message: "List Fetched Successfully!",
+        data: {
+            per_page: limit,
+            total: total,
+            total_pages: total_pages,
+            productList: paginatedItems
+        }
+    }
+
+
+
 }

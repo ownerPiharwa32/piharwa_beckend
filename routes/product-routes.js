@@ -362,3 +362,51 @@
 *              schema:
 *                type: object
 */
+
+
+
+
+
+/**
+ * @swagger
+ * definition:
+ *   GetProductCatDetails:
+ *     properties:
+ *       page_no:
+ *         type: integer
+ *       no_record:
+ *         type: integer
+ *       productCategoryID:
+ *         type: string
+ * 
+ */
+
+
+
+
+
+/**
+* @swagger
+* /api/v1/product/category/list:
+*   post:
+ *     tags:
+ *       - product-controller
+ *     description: Get Product Details
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: ProductDetails
+ *         description: Get ProductDetails object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/GetProductCatDetails'
+*     responses:
+*       200:
+*         description: Successfully Fetched
+*         content:
+*            application/json:
+*              schema:
+*                type: object
+*/  

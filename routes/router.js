@@ -34,6 +34,7 @@ router.get('/main/category/list', categoryController.getMNCategoryDetails)
 router.get('/category/list/:rootCatId', categoryController.getCategoryDetails)
 router.get('/categories/list/all', categoryController.allCategoriesList);
 router.post('/product/list', productController.productListing)
+router.post('/product/category/list', productController.productCatListing)
 router.get('/product/single-product/:id', productController.getSingleproduct)
 router.get('/product/featured-product/list', productController.getFeaturedProduct)
 router.get('/product/latest-arrival/list', productController.getLatestProduct)
