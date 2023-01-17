@@ -47,3 +47,12 @@ module.exports.updateCategoryDetails = async function (req, res) {
         res.json({"status": false , "message": e.errors});
     }
 }
+
+module.exports.allCategoriesList = async function (req, res) { 
+    try {
+        const result = await categoryService.allCategoriesList();
+        res.json({"status": result.status , "message": result.message , data: result.data });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}

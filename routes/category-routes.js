@@ -204,3 +204,22 @@
  *              schema:
  *                type: object
  */
+
+
+/**
+* @swagger
+* /api/v1/categories/list/all:
+*   get:
+*     tags:
+*       - category-controller
+*     description: Get Category List
+*     produces:
+*       - application/json
+*     responses:
+*       200:
+*         description: Successfully Fetched
+*         content:
+*            application/json:
+*              schema:
+*                type: object
+*/  
