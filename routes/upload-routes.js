@@ -16,7 +16,7 @@
 
 /**
  * @swagger
- *  /api/v1/product/upload/images/{productId}/{default}:
+ *  /api/v1/product/upload/images/{productId}:
  *   post:
  *     security:
  *       - bearerAuth: []
@@ -38,11 +38,41 @@
  *         in: path
  *         required: true
  *         type: "string"
- *       - name: default
- *         description: default show
+ *     responses:
+ *       200:
+ *         description: Uploaded successfully
+ *         content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ */
+
+
+
+/**
+ * @swagger
+ *  /api/v1/featured/product/upload/images/{productId}:
+ *   post:
+ *     security:
+ *       - bearerAuth: []
+ *     tags:
+ *       - product-controller
+ *     description: Update image in products
+ *     consumes:
+ *       - multipart/form-data
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - in: formData
+ *         type: file
+ *         name: image
+ *         description: The file to upload.
+ *         required: true
+ *       - name: productId
+ *         description: Product id
  *         in: path
  *         required: true
- *         type: "boolean"
+ *         type: "string"
  *     responses:
  *       200:
  *         description: Uploaded successfully

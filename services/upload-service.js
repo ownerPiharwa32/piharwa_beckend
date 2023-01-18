@@ -6,6 +6,12 @@ module.exports.uploadProductImgs = async (file, reqParams) => {
     return result
 }
 
+module.exports.uploadFeaturedImgs = async (file, reqParams) => {
+    let fileLocation = file[0].location;
+    let result = await productService.uploadFeaturedImgs(fileLocation, reqParams)
+    return result
+}
+
 module.exports.removeProductImgs = async (reqParams) => {
     let result = await productService.removeProductImgs(reqParams)
 }

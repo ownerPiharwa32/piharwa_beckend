@@ -9,7 +9,14 @@ module.exports.uploadProductImgs = async (req, res) => {
         console.log(e)
     }
 }
-
+module.exports.uploadFeaturedImgs = async (req, res) => {
+    try {
+        const result = await uploadService.uploadFeaturedImgs(req.files, req.params);
+        res.json({"status": true , "message": "Featured Image uploaded Successfully!" });
+    }catch (e) {
+        console.log(e)
+    }
+}
 
 module.exports.removeProductImgs = async (req, res) => {
     try {

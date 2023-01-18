@@ -53,7 +53,10 @@ router.post('/product/add', Auth.restrictTo(roles.sellers), productController.ad
 router.put('/product/update', Auth.restrictTo(roles.sellers), productController.updateProductDetails)
 router.put('/product/delete/:productId', Auth.restrictTo(roles.sellers, roles.admin), productController.deleteProduct)
 
-router.post('/product/upload/images/:productId/:default', upload.uploadFile.array('image', 6), uploadController.uploadProductImgs);
+router.post('/product/upload/images/:productId', upload.uploadFile.array('image', 6), uploadController.uploadProductImgs);
+router.post('/featured/product/upload/images/:productId', upload.uploadFile.array('image', 1), uploadController.uploadFeaturedImgs);
+
+
 router.post('/product/remove/images/:productId/:productImgId', uploadController.removeProductImgs);
 
 router.post('/product/add/featured-product', Auth.restrictTo(roles.admin), productController.addFeaturedProduct)

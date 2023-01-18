@@ -60,7 +60,7 @@ module.exports.productListing = async (reqBody) => {
         }
     }
     else if (searchText) {
-        reqObj = {}    
+        reqObj = {}
         searchObj = {
             $match: {
                 $or: [{
@@ -106,7 +106,7 @@ module.exports.productListing = async (reqBody) => {
 
 
     let productDetails = await categoryModel.aggregate([
-        
+
         {
             $match: reqObj
         },
@@ -159,26 +159,6 @@ module.exports.productListing = async (reqBody) => {
         searchObj
     ])
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     const paginatedItems = productDetails.slice(skip).slice(0, limit);
     const total = productDetails.length
     const total_pages = Math.ceil(total / limit)
@@ -202,29 +182,24 @@ module.exports.getSingleproduct = async (reqParams) => {
 
 
 module.exports.updateImgForProduct = async (fileLocation, reqParams) => {
-    let imgObj;
-    let result
-
-    if (reqParams.default == 'false') {
-        result = await productModel.findByIdAndUpdate({ _id: reqParams.productId }, {
-            $push: {
-                thumbnailImgs: fileLocation
-            }
-        })
-    } else {
-        result = await productModel.findByIdAndUpdate({ _id: reqParams.productId }, {
-
-            $push: {
-                thumbnailImgs: fileLocation
-            },
-            $set: {
-                productImg: fileLocation
-            },
-        })
-    }
-
+    let result = await productModel.findByIdAndUpdate({ _id: reqParams.productId }, {
+        $push: {
+            thumbnailImgs: fileLocation
+        }
+    })
     return result
 }
+
+module.exports.uploadFeaturedImgs = async (fileLocation, reqParams) => {
+    let result = await productModel.findByIdAndUpdate({ _id: reqParams.productId }, {
+        $set: {
+            productImg: fileLocation
+        }
+    })
+    return result
+}
+
+
 
 
 module.exports.removeProductImgs = async (reqParams) => {
