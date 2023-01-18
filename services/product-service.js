@@ -124,7 +124,7 @@ module.exports.productListing = async (reqBody) => {
         {
             $lookup: {
                 from: "products",
-                localField: "_id",
+                localField: "parentsHierarchy._id",
                 foreignField: "productCategoryID",
                 as: "productData"
             }
