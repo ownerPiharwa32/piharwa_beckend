@@ -110,14 +110,17 @@ module.exports.productListing = async (reqBody) => {
         {
             $match: reqObj
         },
-        {$graphLookup: {
-            from: 'categories',
-            startWith: '$parentCategoryId',
-            connectFromField: 'parentCategoryId',
-            connectToField: '_id',
-            maxDepth: 2,
-            as: 'parentsHierarchy'
-        }},
+        {
+            $lookup: {
+                from: 'categories',
+                localField: '_id',
+                foreignField: 'parentCategoryId',
+                as: 'parentsHierarchy'
+            }
+        },
+        {
+            $unwind: "$parentsHierarchy"
+        },
         {
             $lookup: {
                 from: "products",
