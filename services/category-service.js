@@ -72,6 +72,7 @@ module.exports.nestedCategories = async (categories, parentId = null) => {
 
     for (let cate of category) {
         categoryList.push({
+            id: cate._id,
             _id: cate._id,
             name: cate.name,
             slug: cate.slug,
