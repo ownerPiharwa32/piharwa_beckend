@@ -157,7 +157,8 @@ module.exports.productListing = async (reqBody) => {
                 productCategoryID: "$productData.productCategoryID",
                 price: "$productData.price",
                 currency: "$productData.currency",
-                productImg: { $arrayElemAt: ["$productData.thumbnailImgs", 0] },
+                // productImg: { $arrayElemAt: ["$productData.thumbnailImgs", 0] },
+                productImg: "$productData.productImg",
                 productRating: "$productData.productRating",
                 OverallRating: "$productData.OverallRating",
                 createdAt: "$productData.createdAt",
@@ -187,7 +188,6 @@ module.exports.productListing = async (reqBody) => {
 
 module.exports.getSingleproduct = async (reqParams) => {
     let result = await productModel.findOne({ _id: reqParams.id })
-    result.productImg = result.thumbnailImgs[0]
     return result
 }
 
