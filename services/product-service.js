@@ -39,7 +39,7 @@ module.exports.productListing = async (reqBody) => {
     const searchText = reqBody.searchText
     let reqObj
     let searchObj;
-
+    let lookupVar= '_id';
 
     if (categoryId == '' && searchText == '') {
         reqObj = {}
@@ -48,6 +48,11 @@ module.exports.productListing = async (reqBody) => {
         }
     }
     else if (categoryId) {
+        let productIDs = await categoryModel.findOne({ _id: ObjectId(categoryId) })
+        if (productIDs.parentCategoryId != null) {
+            lookupVar = 'parentCategoryId'
+        }
+    
         reqObj = {
             "$or": [
                 { "parentCategoryId": ObjectId(categoryId) },
@@ -79,6 +84,11 @@ module.exports.productListing = async (reqBody) => {
         }
     }
     else if (categoryId != '' && searchText != '') {
+        let productIDs = await categoryModel.findOne({ _id: ObjectId(categoryId) })
+        if (productIDs.parentCategoryId != null) {
+            lookupVar = 'parentCategoryId'
+        }
+        
         reqObj = {
             "$or": [
                 { "parentCategoryId": ObjectId(categoryId) },
@@ -99,12 +109,6 @@ module.exports.productListing = async (reqBody) => {
     }
 
 
-
-
-
-
-
-
     let productDetails = await categoryModel.aggregate([
 
         {
@@ -113,7 +117,7 @@ module.exports.productListing = async (reqBody) => {
         {
             $lookup: {
                 from: 'categories',
-                localField: '_id',
+                localField: lookupVar,
                 foreignField: 'parentCategoryId',
                 as: 'parentsHierarchy'
             }
