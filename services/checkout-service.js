@@ -76,13 +76,13 @@ module.exports.orderDetailList = async (reqUser) => {
                 $group: {
                     _id: "$razorpayOrderId",
                     amount: { $first: "$amount" },
+                    paymentStatus: { $first: "$paymentStatus" },
                     createdAt: { $first: "$createdAt" },
                     "items": {
                         "$addToSet": {
                             productTitle: "$productData.productTitle",
                             productSKU: "$productData.productSKU",
                             productImg: "$productData.productImg",
-                            
                         }
                     }
 
