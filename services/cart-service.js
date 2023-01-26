@@ -11,6 +11,7 @@ module.exports.addProductInCart = async (reqUser, reqBody) => {
 }
 
 module.exports.cartListing = async (reqUser) => {
+    console.log(reqUser,"rrrrrrrrrrrrrrrrrrrrrrrr")
     let result = await productCartModel.aggregate([
         {
             $match: {
@@ -20,7 +21,7 @@ module.exports.cartListing = async (reqUser) => {
         {
             $lookup: {
                 from: "products",
-                localField: "productId",
+                localField: "productDetails.productId",
                 foreignField: "_id",
                 as: "productData"
             }
@@ -29,24 +30,39 @@ module.exports.cartListing = async (reqUser) => {
             $unwind: "$productData"
         },
         {
-            $project: {
-                productId: "$productData._id",
-                productTitle: "$productData.productTitle",
-                price: "$productData.price",
-                allowDiscount: "$productData.allowDiscount",
-                discountPrice: "$productData.discountPrice",
-                currency: "$productData.currency",
-                productImg: "$productData.productImg",
-                productDetails: {
-                    $filter: {
-                        input: "$productData",
-                        as: "item",
-                        cond: {$eq: ["$$item.productDetails", 1]}
-                       }
-                }
-            },
+            $group: {
+                _id: "$_id",
+                "items": {
+                    "$addToSet": {
+                        productId : "$productData._id",
+                        productTitle: "$productData.productTitle",
+                        productSKU: "$productData.productSKU",
+                        productImg: "$productData.productImg",
+                        // quantity: { $first : "$productDetails.quantity"}
+                   
+                        }
+                 }
+            }
+        }
+        // {
+        //     $project: {
+        //         productId: "$productData._id",
+        //         productTitle: "$productData.productTitle",
+        //         price: "$productData.price",
+        //         allowDiscount: "$productData.allowDiscount",
+        //         discountPrice: "$productData.discountPrice",
+        //         currency: "$productData.currency",
+        //         productImg: "$productData.productImg",
+                // productDetails: {
+                //     $filter: {
+                //         input: "$productData",
+                //         as: "item",
+                //         cond: {$eq: ["$$item.productDetails", 1]}
+                //        }
+                // }
+        //     },
 
-        },
+        // },
 
 
     ])

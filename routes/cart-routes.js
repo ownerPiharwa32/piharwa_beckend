@@ -18,12 +18,17 @@
  * definition:
  *   ProductCartDetails:
  *     properties:
- *       productId:
- *         type: string
- *       quantity:
- *         type: integer
- *       sizes:
- *         type: string
+ *       productDetails:
+ *         type: array
+ *         items:
+ *            type: object
+ *            properties:
+ *                  productId:
+ *                      type: string
+ *                  quantity:
+ *                      type: integer
+ *                  sizes:
+ *                      type: string
  * 
  */
 

@@ -10,16 +10,20 @@ const productCartSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "users",
     },
-    productId: {
-        type: Schema.Types.ObjectId,
-        ref: "products",
-    }, 
-    quantity: {
-        type: Number
-    },
-    sizes: {
-        type: String,
-    }
+    productDetails: [
+        {
+            productId: {
+                type: Schema.Types.ObjectId,
+                ref: "products",
+            },
+            quantity: {
+                type: Number
+            },
+            sizes: {
+                type: String,
+            }
+        }
+    ]
 }, {
     timestamps: true,
 })
