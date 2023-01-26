@@ -38,6 +38,7 @@ module.exports.paymentVerify = async (reqBody) => {
         console.log("sig generated ", expectedSignature);
         var response = { "signatureIsValid": "false" }
         if (expectedSignature === reqBody.razorpay_signature) {
+            await ordersModel.findOneAndUpdate({ razorpayOrderId: reqBody.razorpay_order_id }, {$set: { paymentStatus : "paid" }})
             response = { "signatureIsValid": "true" }
         }
 

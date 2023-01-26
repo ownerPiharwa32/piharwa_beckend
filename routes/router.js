@@ -84,6 +84,7 @@ router.post('/buyer/list/details',  Auth.restrictTo(roles.admin), buyersControll
 router.post('/buyer/add/address/details', buyersController.addAddreesDetails)
 router.put('/buyer/edit/address/details', buyersController.editAddreesDetails)
 router.get('/buyer/list/address/details', buyersController.getAddreesDetails)
+router.get('/buyer/default/address/details', buyersController.getDefaultAddress)
 router.delete('/buyer/delete/address/details/:addressId', buyersController.deleteAddreesDetails)
 
 router.post('/checkout/order/create', checkoutController.createOrderDetails)

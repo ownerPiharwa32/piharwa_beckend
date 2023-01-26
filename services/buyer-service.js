@@ -170,11 +170,9 @@ module.exports.editAddreesDetails = async (reqUser, reqBody) => {
 
 
 
-module.exports.getAddreesDetails = async (reqUser, reqBody) => {
+module.exports.getAddreesDetails = async (reqUser) => {
   try {
-    reqBody.user_id = ObjectId(reqUser.user_id)
     let result = await addressModel.find({ "user_id": ObjectId(reqUser.user_id) })
-
     return {
       status: true,
       message: "Address List Fetched Successfully",
@@ -184,6 +182,24 @@ module.exports.getAddreesDetails = async (reqUser, reqBody) => {
     return { "status": false, "message": "You Don't have any Address Details" }
   }
 }
+
+module.exports.getDefaultAddress = async (reqUser) => {
+  try {
+    let result = await addressModel.findOne({ "user_id": ObjectId(reqUser.user_id), "default": true })
+    if (result == null) {
+      result = await addressModel.findOne({ "user_id": ObjectId(reqUser.user_id) })
+    }
+    return {
+      status: true,
+      message: "Default Address Fetched Successfully",
+      data: result
+    }
+  } catch (e) {
+    return { "status": false, "message": "You Don't have any Address Details" }
+  }
+}
+
+
 
 module.exports.deleteAddreesDetails = async (reqUser, reqParams) => {
   try {

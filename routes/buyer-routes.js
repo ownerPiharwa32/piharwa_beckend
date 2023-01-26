@@ -295,6 +295,27 @@
 */
 
 
+/**
+* @swagger
+* /api/v1/buyer/default/address/details:
+*   get:
+*     security:
+*       - bearerAuth: []  
+*     tags:
+*       - buyer-controller
+*     description: Get Buyer Address
+*     produces:
+*       - application/json
+*     responses:
+*       200:
+*         description: Successfully Fetched
+*         content:
+*            application/json:
+*              schema:
+*                type: object
+*/
+
+
 
 
 

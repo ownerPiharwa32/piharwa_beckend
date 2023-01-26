@@ -82,7 +82,7 @@ module.exports.editAddreesDetails = async (req, res) => {
 
 module.exports.getAddreesDetails = async (req, res) => {
     try {
-        const result = await buyerService.getAddreesDetails(req.user, req.body);
+        const result = await buyerService.getAddreesDetails(req.user);
         res.json({"status": true , "message": result.message, "data": result.data });
     } catch (e) {
         console.log(e)
@@ -90,6 +90,15 @@ module.exports.getAddreesDetails = async (req, res) => {
     }
 }
 
+module.exports.getDefaultAddress = async (req, res) => {
+    try {
+        const result = await buyerService.getDefaultAddress(req.user);
+        res.json({"status": true , "message": result.message, "data": result.data });
+    } catch (e) {
+        console.log(e)
+        res.json({"status": false , "message": e});
+    }
+}
 module.exports.deleteAddreesDetails = async (req, res) => { 
     try {
         const result = await buyerService.deleteAddreesDetails(req.user, req.params);
