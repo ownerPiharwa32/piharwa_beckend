@@ -88,7 +88,7 @@ router.delete('/buyer/delete/address/details/:addressId', buyersController.delet
 
 router.post('/checkout/order/create', checkoutController.createOrderDetails)
 router.post('/checkout/payment/verify', checkoutController.paymentVerify)
-
+router.get('buyer/order/list', checkoutController.orderDetailList)
 
 /************************* Blog Api's *******************************/
 

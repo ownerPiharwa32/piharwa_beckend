@@ -18,10 +18,49 @@
  * definition:
  *   CheckoutDetails:
  *     properties:
- *       amount:
+ *       cartId:
  *         type: string
+ *       firstName:
+ *         type: string
+ *       lastName:
+ *         type: string
+ *       mobileNo:
+ *         type: string
+ *       address_line_one:
+ *         type: string
+ *       address_line_two:
+ *         type: string
+ *       landmark:
+ *         type: string
+ *       city: 
+ *         type: string
+ *       state:
+ *         type: string
+ *       country:
+ *         type: string
+ *       pincode:
+ *         type: string
+ *       amount:
+ *         type: integer
  *       currency:
  *         type: string
+ *       productDetails:
+ *         type: array
+ *         items:
+ *            type: object
+ *            properties:
+ *               productID:
+ *                  type: string
+ *               SellerStoreID:
+ *                  type: string
+ *               rootCategoryId:
+ *                  type: string
+ *               productCategoryID:
+ *                  type: string
+ *               quantity:   
+ *                  type: integer
+ *               sizes:
+ *                  type: string
  * 
  */
 
