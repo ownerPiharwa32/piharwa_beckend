@@ -3,6 +3,7 @@ const Razorpay = require('razorpay');
 const crypto = require("crypto");
 var instance = new Razorpay({ key_id: process.env.RAZORPAYACCESSKEY, key_secret: process.env.RAZORPAYSECRETKEY })
 const ordersModel = require('../models/orders')
+const { ObjectId } = require('mongodb');
 
 module.exports.createOrderDetails = async (reqUser, reqBody) => {
     try {
@@ -55,11 +56,45 @@ module.exports.paymentVerify = async (reqBody) => {
 
 module.exports.orderDetailList = async (reqUser) => {
     try {
-        await ordersModel.aggregate([])
+        let result = await ordersModel.aggregate([
+            {
+                $match: { "user_id": ObjectId(reqUser.user_id), "paymentStatus": "paid" }
+            },
+            {
+                $lookup:
+                {
+                    from: 'products',
+                    localField: 'productDetails.productID',
+                    foreignField: '_id',
+                    as: 'productData'
+                }
+            },
+            {
+                $unwind: "$productData"
+            },
+            {
+                $group: {
+                    _id: "$razorpayOrderId",
+                    amount: { $first: "$amount" },
+                    createdAt: { $first: "$createdAt" },
+                    "items": {
+                        "$addToSet": {
+                            productTitle: "$productData.productTitle",
+                            productSKU: "$productData.productSKU",
+                            productImg: "$productData.productImg",
+                            
+                        }
+                    }
+
+                }
+
+            }
+
+        ])
         return {
             status: true,
             message: "Order List fetched Successfully",
-            data: orders
+            data: result
         }
     } catch (e) {
         console.log(e)

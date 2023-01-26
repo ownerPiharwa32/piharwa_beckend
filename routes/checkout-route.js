@@ -135,3 +135,47 @@
  *              schema:
  *                type: object
  */
+
+
+
+
+/**
+* @swagger
+* definition:
+*   BuyerOrderList:
+*     properties:
+*       pageNo:
+*         type: integer
+*       noRecord:
+*         type: integer
+*
+*/
+
+
+/**
+ * @swagger
+ * /api/v1/buyer/order/list:
+ *   post:
+ *     security:
+ *       - bearerAuth: [] 
+ *     tags:
+ *       - checkout-controller
+ *     description: Buyer Order List Details
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: BuyerDetails
+ *         description: BuyerDetails object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/BuyerOrderList'
+ *     responses:
+ *       200:
+ *         description: Successfully Created
+ *         content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ */
