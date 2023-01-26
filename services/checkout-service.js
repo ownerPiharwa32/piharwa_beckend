@@ -11,7 +11,9 @@ module.exports.createOrderDetails = async (reqUser, reqBody) => {
             amount: parseFloat(reqBody.amount) * 100,  // amount in the smallest currency unit
             currency: reqBody.currency
         };
+        console.log(options,"===========options")
         let orders = await instance.orders.create(options)
+        console.log(orders,"===========orders")
         reqBody.user_id = reqUser.user_id;
         reqBody.razorpayOrderId = orders.id;
         reqBody.paymentStatus = orders.status
