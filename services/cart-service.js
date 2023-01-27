@@ -11,13 +11,13 @@ module.exports.addProductInCart = async (reqUser, reqBody) => {
 }
 
 module.exports.cartListing = async (reqUser) => {
-    console.log(reqUser,"rrrrrrrrrrrrrrrrrrrrrrrr")
     let result = await productCartModel.aggregate([
         {
             $match: {
                 user_id: ObjectId(reqUser.user_id),
             }
         },
+        { $unwind: { path: "$productDetails" } },
         {
             $lookup: {
                 from: "products",
@@ -34,37 +34,16 @@ module.exports.cartListing = async (reqUser) => {
                 _id: "$_id",
                 "items": {
                     "$addToSet": {
-                        productId : "$productData._id",
+                        productId: "$productData._id",
                         productTitle: "$productData.productTitle",
                         productSKU: "$productData.productSKU",
                         productImg: "$productData.productImg",
-                        // quantity: { $first : "$productDetails.quantity"}
-                   
-                        }
-                 }
+                        quantity: "$productDetails.quantity"
+
+                    }
+                }
             }
         }
-        // {
-        //     $project: {
-        //         productId: "$productData._id",
-        //         productTitle: "$productData.productTitle",
-        //         price: "$productData.price",
-        //         allowDiscount: "$productData.allowDiscount",
-        //         discountPrice: "$productData.discountPrice",
-        //         currency: "$productData.currency",
-        //         productImg: "$productData.productImg",
-                // productDetails: {
-                //     $filter: {
-                //         input: "$productData",
-                //         as: "item",
-                //         cond: {$eq: ["$$item.productDetails", 1]}
-                //        }
-                // }
-        //     },
-
-        // },
-
-
     ])
     return result;
 }
