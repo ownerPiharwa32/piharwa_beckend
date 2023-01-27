@@ -5,9 +5,12 @@ const productCartModel = require('../models/productCart')
 const { ObjectId } = require('mongodb');
 
 module.exports.addProductInCart = async (reqUser, reqBody) => {
-    reqBody.user_id = ObjectId(reqUser.user_id)
-    let result = await productCartModel.create(reqBody)
-    return result
+    let user_id = ObjectId(reqUser.user_id)
+    let result = await productCartModel.updateOne({ user_id: user_id }, { $set: { productDetails: reqBody.productDetails } }, { upsert: true })
+    return {
+        status: true,
+        message: "Added Cart Successfully!",
+    }
 }
 
 module.exports.cartListing = async (reqUser) => {
