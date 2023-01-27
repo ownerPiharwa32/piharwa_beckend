@@ -41,8 +41,8 @@ module.exports.cartListing = async (reqUser) => {
                         productTitle: "$productData.productTitle",
                         productSKU: "$productData.productSKU",
                         productImg: "$productData.productImg",
-                        quantity: "$productDetails.quantity"
-
+                        quantity: "$productDetails.quantity",
+                        price: "$productData.price"
                     }
                 }
             }
