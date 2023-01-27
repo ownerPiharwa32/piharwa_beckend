@@ -79,7 +79,12 @@ const orderSchema = new Schema({
         sizes: {
             type: String,
         }
-    }]
+    }],
+    trackingStatus: {
+        type: String,
+        enum: ['initiated', 'packaging', 'shipped', 'delivered', 'canceled'],
+        default: 'initiated'
+    }
 }, {
     timestamps: true,
 })

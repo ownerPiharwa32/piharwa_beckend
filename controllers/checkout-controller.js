@@ -27,3 +27,12 @@ module.exports.orderDetailList = async (req, res) => {
         res.json({"status": false , "message": e.errors});
     }
 }
+
+module.exports.updateTrackingStatus = async (req, res) => {
+    try {
+        const result = await checkoutService.updateTrackingStatus(req.user, req.params);
+        res.json({"status": true , "message": result.message });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}

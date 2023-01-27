@@ -102,3 +102,16 @@ module.exports.orderDetailList = async (reqUser) => {
     }
 
 } 
+
+
+module.exports.updateTrackingStatus = async(reqUser, reqParams) => {
+    let orderId = reqParams.orderId;
+    let trackingStatus = reqParams.status
+
+    let result = await ordersModel.findOneAndUpdate({ razorpayOrderId: orderId }, { $set: { trackingStatus: trackingStatus } })
+    
+    return {
+        status: true,
+        message: "Tracking Status Update Successfully"
+    }
+}

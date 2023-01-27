@@ -179,3 +179,36 @@
  *              schema:
  *                type: object
  */
+
+
+
+/**
+ * @swagger
+ * /api/v1/buyer/order/track-status/update/{orderId}/{status}:
+ *   get:
+ *     security:
+ *       - bearerAuth: [] 
+ *     tags:
+ *       - checkout-controller
+ *     description: Update Order Tracking Status
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: orderId
+ *         description: Update Order Tracking Status
+ *         in: path
+ *         required: true
+ *         type: string
+ *       - name: status
+ *         description: Update Order Tracking Status
+ *         in: path
+ *         required: true
+ *         type: string
+ *         enum: [initiated, packaging, shipped, delivered, canceled]
+ *     responses:
+ *       200:
+ *         description: Update Order Tracking Status
+ *         content:
+ *            application/json:
+ *                type: object
+ */

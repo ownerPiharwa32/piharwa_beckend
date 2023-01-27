@@ -99,4 +99,6 @@ router.put('/blog/update/details', Auth.restrictTo(roles.sellers, roles.admin), 
 router.post('/testimonials/add', Auth.restrictTo(roles.sellers, roles.admin), testimonialController.addTestimonialDetails)
 router.put('/testimonials/update', Auth.restrictTo(roles.sellers, roles.admin), testimonialController.updateTestimonialDetails)
 
+router.get('/buyer/order/track-status/update/:orderId/:status', Auth.restrictTo(roles.sellers, roles.admin), checkoutController.updateTrackingStatus )
+
 module.exports = router;
