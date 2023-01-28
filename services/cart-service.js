@@ -59,6 +59,7 @@ module.exports.cartListing = async (reqUser) => {
                 productSKU: "$productData.productSKU",
                 productImg: "$productData.productImg",
                 quantity: 1,
+                sizes: 1,
                 price: "$productData.price"
             }
         }
