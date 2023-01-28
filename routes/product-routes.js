@@ -104,7 +104,8 @@
  *         type: string
  *       searchText:
  *         type: string
- * 
+ *       productSort:
+ *         type: integer
  */
 
 

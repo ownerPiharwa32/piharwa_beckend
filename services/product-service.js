@@ -37,6 +37,8 @@ module.exports.productListing = async (reqBody) => {
     const rootCategoryId = reqBody.rootCatId
     const categoryId = reqBody.productCategoryID
     const searchText = reqBody.searchText
+    let productSort = reqBody.productSort;
+    let sortvalue = { createdAt: -1 } 
     let reqObj
     let searchObj;
     let lookupVar= '_id';
@@ -108,6 +110,10 @@ module.exports.productListing = async (reqBody) => {
         }
     }
 
+    if (productSort != 0) {
+        sortvalue = { price: parseInt(productSort)}
+    }
+
 
     let productDetails = await categoryModel.aggregate([
 
@@ -173,7 +179,7 @@ module.exports.productListing = async (reqBody) => {
 
         },
         searchObj
-    ])
+    ]).sort(sortvalue)
 
     const paginatedItems = productDetails.slice(skip).slice(0, limit);
     const total = productDetails.length
