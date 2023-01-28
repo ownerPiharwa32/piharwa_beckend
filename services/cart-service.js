@@ -6,12 +6,30 @@ const { ObjectId } = require('mongodb');
 
 module.exports.addProductInCart = async (reqUser, reqBody) => {
     let user_id = ObjectId(reqUser.user_id)
-    let result = await productCartModel.updateOne({ user_id: user_id }, { $set: { productDetails: reqBody.productDetails } }, { upsert: true })
+    let productDetails = reqBody.productDetails
+    for (let i = 0; i < productDetails.length; i++) {
+        const productItems = productDetails[i];
+        productItems.user_id = user_id;
+        await productCartModel.create(productItems)
+    }
+
     return {
         status: true,
         message: "Added Cart Successfully!",
     }
 }
+
+
+module.exports.updateProductInCart = async (reqUser, reqBody) => {
+    let user_id = ObjectId(reqUser.user_id)
+    let result = await productCartModel.findOneAndUpdate({ user_id: user_id, _id: reqBody.cartId }, { $set: { productId: reqBody.productId, quantity: reqBody.quantity, sizes: reqBody.sizes } })
+
+    return {
+        status: true,
+        message: "Update Cart Successfully!",
+    }
+}
+
 
 module.exports.cartListing = async (reqUser) => {
     let result = await productCartModel.aggregate([
@@ -20,11 +38,10 @@ module.exports.cartListing = async (reqUser) => {
                 user_id: ObjectId(reqUser.user_id),
             }
         },
-        { $unwind: { path: "$productDetails" } },
         {
             $lookup: {
                 from: "products",
-                localField: "productDetails.productId",
+                localField: "productId",
                 foreignField: "_id",
                 as: "productData"
             }
@@ -33,20 +50,30 @@ module.exports.cartListing = async (reqUser) => {
             $unwind: "$productData"
         },
         {
-            $group: {
-                _id: "$_id",
-                "items": {
-                    "$addToSet": {
-                        productId: "$productData._id",
-                        productTitle: "$productData.productTitle",
-                        productSKU: "$productData.productSKU",
-                        productImg: "$productData.productImg",
-                        quantity: "$productDetails.quantity",
-                        price: "$productData.price"
-                    }
-                }
+            $project: {
+                productId: "$productData._id",
+                productTitle: "$productData.productTitle",
+                productSKU: "$productData.productSKU",
+                productImg: "$productData.productImg",
+                quantity: 1,
+                price: "$productData.price"
             }
         }
     ])
-    return result;
+    return {
+        status: true,
+        message: "Cart Lsting Fetch Successfully!",
+        data: result
+    }
+}
+
+
+module.exports.deleteProductFromCart = async (reqUser, reqParams) => {
+    let user_id = ObjectId(reqUser.user_id)
+    await productCartModel.remove({ user_id: ObjectId(user_id), productId: ObjectId(reqParams.productId) })
+
+    return {
+        status: true,
+        message: "Delete Product Successfully!",
+    }
 }

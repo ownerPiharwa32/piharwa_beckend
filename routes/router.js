@@ -74,7 +74,9 @@ router.post('/user/forget-password', commonController.forgetPassword)
 /************************* cart Api's *******************************/
 
 router.post('/cart/add/details', cartController.addProductInCart)
+router.put('/cart/update/details', cartController.updateProductInCart)
 router.get('/cart/list', cartController.cartListing)
+router.delete('/cart/delete/details/:productId', cartController.deleteProductFromCart)
 
 
 /************************* Buyer Api's *******************************/
