@@ -4,8 +4,9 @@ const jwt = require("jsonwebtoken");
 const { ObjectId } = require('mongodb');
 const tokenModel = require('../models/token')
 const userModel = require('../models/users')
+const otpTokenService = require('../services/otpToken-service')
 const otpTokenModel = require('../models/otpTokens')
-
+const emailTemplate = require("../constants/emailTemplates")
 
 var transporter = nodemailer.createTransport({
     host: config.emailSecret.SES_HOST_NAME,
@@ -48,15 +49,23 @@ module.exports.updateRefreshToken = async (user_id, token) => {
 
 
 module.exports.forgetPassword = async function (reqBody) { 
-    let random_number = Math.floor(100000 + Math.random() * 900000)
+    let randomNumber = await this.randomOtpGenerate()
     let emailId = reqBody.emailId
     let result = await userModel.findOne({ emailId: emailId }, { firstName: 1, lastName: 1, mobileNo: 1 })
     
     if (result.length > 0) { 
-        await otpTokenModel.updateOne({ emailId: emailId }, { $set: { otpToken: random_number, updatedAt: new Date() } });
-    } else {
-        
-    }
+        await otpTokenService.createUserOtp(emailId, randomNumber);
+        let mailObj = {
+            emailId: emailId,
+            subjectID: emailTemplate.forgetPasswordAuth.subject,
+            emailTemplate: emailTemplate.forgetPasswordAuth.generateTemplate(randomNumber),
+          };
+          await commonService.sendMail(mailObj);
+          return {
+            status: true,
+            message: "Email Sent Successfully"
+          }
+    } 
 }
 
 

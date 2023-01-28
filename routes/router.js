@@ -30,6 +30,7 @@ router.post('/user/login', sellersController.sellersLogin)
 router.post('/buyers/register', buyersController.buyersRegistration)
 router.post('/buyers/login', buyersController.buyersLogin)
 router.post('/buyers/verify/otp', buyersController.verifyOTP)
+router.post('/user/forget-password', commonController.forgetPassword)
 
 router.get('/main/category/list', categoryController.getMNCategoryDetails)
 router.get('/category/list/:rootCatId', categoryController.getCategoryDetails)
@@ -69,7 +70,7 @@ router.get('/seller/product/list', sellersController.sellerProductsList)
 
 /************************* common Api's *******************************/
 
-router.post('/user/forget-password', commonController.forgetPassword)
+
 
 /************************* cart Api's *******************************/
 

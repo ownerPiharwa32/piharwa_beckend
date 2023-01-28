@@ -31,3 +31,42 @@
  *              schema:
  *                type: object
  */
+
+
+/**
+* @swagger
+* definition:
+*   ForgetPasswordObj:
+*     properties:
+*       emailId:
+*         type: string
+*       userOtp:
+*         type: string
+*/
+
+
+/**
+ * @swagger
+ * /api/v1/user/forget-password:
+ *   post:
+ *     tags:
+ *       - common-controller
+ *     description: Forget User Password
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: ForgetPassword
+ *         description: ForgetPassword object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/ForgetPasswordObj'
+ *     responses:
+ *       200:
+ *         description: Successfully Created
+ *         content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ */
