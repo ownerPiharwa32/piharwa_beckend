@@ -7,15 +7,18 @@ const { ObjectId } = require('mongodb');
 module.exports.addProductInCart = async (reqUser, reqBody) => {
     let user_id = ObjectId(reqUser.user_id)
     let productDetails = reqBody.productDetails
+    let cartArr = [];
     for (let i = 0; i < productDetails.length; i++) {
         const productItems = productDetails[i];
         productItems.user_id = user_id;
-        await productCartModel.create(productItems)
+        let result = await productCartModel.create(productItems)
+        cartArr.push(result)
     }
 
     return {
         status: true,
         message: "Added Cart Successfully!",
+        data: cartArr
     }
 }
 
