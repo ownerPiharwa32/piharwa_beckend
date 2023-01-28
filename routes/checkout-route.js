@@ -18,8 +18,6 @@
  * definition:
  *   CheckoutDetails:
  *     properties:
- *       cartId:
- *         type: string
  *       firstName:
  *         type: string
  *       lastName:
@@ -50,12 +48,6 @@
  *            type: object
  *            properties:
  *               productID:
- *                  type: string
- *               SellerStoreID:
- *                  type: string
- *               rootCategoryId:
- *                  type: string
- *               productCategoryID:
  *                  type: string
  *               quantity:   
  *                  type: integer

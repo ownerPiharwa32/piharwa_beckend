@@ -10,10 +10,6 @@ const orderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "users",
     },
-    cartId: {
-        type: Schema.Types.ObjectId,
-        ref: "productCart",
-    },
     razorpayOrderId: {
         type: String,
     },
@@ -60,18 +56,6 @@ const orderSchema = new Schema({
         productID: {
             type: Schema.Types.ObjectId,
             ref: "products",
-        },
-        SellerStoreID: {
-            type: Schema.Types.ObjectId,
-            ref: "sellers",
-        },
-        rootCategoryId: {
-            type: Schema.Types.ObjectId,
-            ref: "maincategories",
-        },
-        productCategoryID: {
-            type: Schema.Types.ObjectId,
-            ref: "categories",
         },
         quantity: {
             type: Number
