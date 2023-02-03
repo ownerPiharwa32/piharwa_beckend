@@ -272,23 +272,13 @@ module.exports.getFeaturedProduct = async () => {
 
 
 module.exports.getLatestProduct = async () => {
-    let productArr = []
-    let lProduct = await productModel.find({ productStatus: true }, { "thumbnailImgs": { $slice: 1 }, 'thumbnailImgs[0]': 1, productTitle: 1 }).sort({ "createdAt": -1 })
+    let lProduct = await productModel.find({ productStatus: true }, { productImg: 1, productTitle: 1 }).sort({ "createdAt": -1 })
         .limit(4)
 
-    for (let i = 0; i < lProduct.length; i++) {
-        const lProducts = lProduct[i];
-        let productObj = {
-            id: lProducts._id,
-            productTitle: lProducts.productTitle,
-            productImg: lProducts.thumbnailImgs[0]
-        }
-        productArr.push(productObj)
-    }
     return {
         status: true,
         message: "Latest Products Fetched Successfully",
-        data: productArr
+        data: lProduct
     }
 }
 
