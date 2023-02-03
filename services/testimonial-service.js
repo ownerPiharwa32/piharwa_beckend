@@ -13,7 +13,7 @@ module.exports.addTestimonialDetails = async function (reqUser, reqBody) {
 }
 
 module.exports.listTestimonialDetails = async function () {
-    let result = await testimonialModel.find()
+    let result = await testimonialModel.find().limit(3).sort( { "createdAt": -1 } )
     return {
         status: true,
         message: "Testimonial fetched successfully!",
