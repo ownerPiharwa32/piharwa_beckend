@@ -8,7 +8,9 @@ const config = {
       //  url: `mongodb://localhost:27017/piharwaDB`,
        url: `mongodb+srv://piharwaDB:piharwaDBpass@cluster0.mx6skd3.mongodb.net/piharwaDB?retryWrites=true&w=majority`
   },
-  whitelist: { whitelist_url: ['http://localhost:3000', 'http://localhost:3001','http://localhost:4200', 'http://localhost:8080', 'http://piharwa.co.in', 'http://3.22.167.33:3000','http://www.piharwa.com','http://piharwa.com' ] },
+  // whitelist: { whitelist_url: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:4200', 'http://localhost:8080', 'http://piharwa.co.in', 'http://3.22.167.33:3000', 'http://www.piharwa.com', 'http://piharwa.com'] },
+
+  whitelist: { whitelist_url: ['http://www.piharwa.com','https://piharwa.com' ] },
     
   jwt: {
     jwtSecret: process.env.JWT_SECRET_TOKEN,
