@@ -6,13 +6,11 @@ const roles = constants.roles;
 const { ObjectId } = require('mongodb');
 
 const rootcatSchema = new Schema({
-    categoryTitle: {
+    name: {
         type: String,
-        unique: true
     },
     slug: {
         type: String,
-        unique: true
     },
 }, {
     timestamps: true,
