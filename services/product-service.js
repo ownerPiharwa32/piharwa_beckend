@@ -247,21 +247,11 @@ module.exports.addFeaturedProduct = async (reqBody) => {
 
 module.exports.getFeaturedProduct = async () => {
     try {
-        let productArr = []
-        let fProduct = await productModel.find({ featuredProduct: true, productStatus: true }, { "thumbnailImgs": { $slice: 1 }, 'thumbnailImgs[0]': 1, productTitle: 1 }).limit(6)
-        for (let i = 0; i < fProduct.length; i++) {
-            const fProducts = fProduct[i];
-            let productObj = {
-                id: fProducts._id,
-                productTitle: fProducts.productTitle,
-                productImg: fProducts.thumbnailImgs[0]
-            }
-            productArr.push(productObj)
-        }
+        let fProduct = await productModel.find({ featuredProduct: true, productStatus: true }, { productImg: 1, productTitle: 1 }).limit(4)
         return {
             status: true,
             message: "Featured Products Fecthed Successfully",
-            data: productArr
+            data: fProduct
         }
 
     } catch (e) {
