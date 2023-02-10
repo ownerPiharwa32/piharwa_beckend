@@ -10,7 +10,7 @@ const config = {
     url: `mongodb://18.191.113.44/piharwaDB`
   },
 
-  whitelist: { whitelist_url: ['http://piharwa.com', 'http://www.piharwa.com', 'https://piharwa.com'] },
+  whitelist: { whitelist_url: ['http://piharwa.com', 'http://www.piharwa.com', 'https://piharwa.com',"http://admin.piharwa.com","https://admin.piharwa.com"] },
 
   jwt: {
     jwtSecret: process.env.JWT_SECRET_TOKEN,
