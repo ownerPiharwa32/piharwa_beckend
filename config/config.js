@@ -5,12 +5,12 @@ const config = {
     swaggerHostname: process.env.SWAGGER_HOSTNAME
   },
   database: {
-    // url: `mongodb://localhost:27017/piharwaDB`,
+    //  url: `mongodb://localhost:27017/piharwaDB`,
     //  url: `mongodb+srv://piharwaDB:piharwaDBpass@cluster0.mx6skd3.mongodb.net/piharwaDB?retryWrites=true&w=majority`
-    url: `mongodb://18.191.113.44/piharwaDB`
+     url: `mongodb://18.191.113.44/piharwaDB`
   },
 
-  whitelist: { whitelist_url: ['http://piharwa.com', 'http://www.piharwa.com', 'https://piharwa.com',"http://admin.piharwa.com","https://admin.piharwa.com"] },
+  whitelist: { whitelist_url: ['http://piharwa.com', 'http://www.piharwa.com', 'https://piharwa.com',"http://admin.piharwa.com","https://admin.piharwa.com", "http://localhost:4200"] },
 
   jwt: {
     jwtSecret: process.env.JWT_SECRET_TOKEN,
