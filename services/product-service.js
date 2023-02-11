@@ -30,155 +30,261 @@ module.exports.updateProductDetails = async (reqBody) => {
 
 
 
+// module.exports.productListing = async (reqBody) => {
+//     const page = reqBody.page_no * 1 || 1;
+//     const limit = reqBody.no_record * 1 || 10;
+//     const skip = (page - 1) * limit;
+//     const rootCategoryId = reqBody.rootCatId
+//     const categoryId = reqBody.productCategoryID
+//     const searchText = reqBody.searchText
+//     let productSort = reqBody.productSort;
+//     let sortvalue = { createdAt: -1 }
+//     let reqObj
+//     let searchObj;
+//     let lookupVar= '_id';
+
+//     if (categoryId == '' && searchText == '') {
+//         reqObj = {}
+//         searchObj = {
+//             $match: {}
+//         }
+//     }
+//     else if (categoryId) {
+//         let productIDs = await categoryModel.findOne({ _id: ObjectId(categoryId) })
+//         if (productIDs.parentCategoryId != null) {
+//             lookupVar = 'parentCategoryId'
+//         }
+
+//         reqObj = {
+//             "$or": [
+//                 { "parentCategoryId": ObjectId(categoryId) },
+//                 { "_id": ObjectId(categoryId) },
+//             ]
+//         }
+
+//         searchObj = {
+//             $match: {}
+//         }
+//     }
+//     else if (searchText) {
+//         reqObj = {}
+//         searchObj = {
+//             $match: {
+//                 $or: [{
+//                     productTitle: {
+//                         $regex: searchText,
+//                         $options: "$ig"
+//                     },
+//                 },
+//                 {
+//                     productCategoryName: {
+//                         $regex: searchText,
+//                         $options: "$ig"
+//                     }
+//                 }]
+//             },
+//         }
+//     }
+//     else if (categoryId != '' && searchText != '') {
+//         let productIDs = await categoryModel.findOne({ _id: ObjectId(categoryId) })
+//         if (productIDs.parentCategoryId != null) {
+//             lookupVar = 'parentCategoryId'
+//         }
+
+//         reqObj = {
+//             "$or": [
+//                 { "parentCategoryId": ObjectId(categoryId) },
+//                 { "_id": ObjectId(categoryId) },
+//             ]
+//         }
+
+//         searchObj = {
+//             $match: {
+//                 $or: [{
+//                     productTitle: {
+//                         $regex: searchText,
+//                         $options: "$ig"
+//                     },
+//                 }]
+//             },
+//         }
+//     }
+
+//     if (productSort != 0) {
+//         sortvalue = { price: parseInt(productSort)}
+//     }
+
+
+//     let productDetails = await categoryModel.aggregate([
+
+//         {
+//             $match: reqObj
+//         },
+//         {
+//             $lookup: {
+//                 from: 'categories',
+//                 localField: lookupVar,
+//                 foreignField: 'parentCategoryId',
+//                 as: 'parentsHierarchy'
+//             }
+//         },
+//         {
+//             $unwind: "$parentsHierarchy"
+//         },
+//         {
+//             $lookup: {
+//                 from: "products",
+//                 localField: "parentsHierarchy._id",
+//                 foreignField: "productCategoryID",
+//                 as: "productData"
+//             }
+//         },
+//         {
+//             $unwind: "$productData"
+//         },
+//         {
+//             $match: {
+//                 "productData.productStatus": true,
+//                 "productData.rootCategoryId": ObjectId(rootCategoryId)
+//             }
+//         },
+//         {
+
+//             $lookup: {
+//                 from: "sellers",
+//                 localField: "productData.SellerStoreID",
+//                 foreignField: "_id",
+//                 as: "sellerShopName"
+//             }
+//         },
+//         {
+//             $unwind: "$sellerShopName"
+//         },
+//         {
+//             $project: {
+//                 _id: "$productData._id",
+//                 productTitle: "$productData.productTitle",
+//                 productCategoryID: "$productData.productCategoryID",
+//                 price: "$productData.price",
+//                 currency: "$productData.currency",
+//                 // productImg: { $arrayElemAt: ["$productData.thumbnailImgs", 0] },
+//                 productImg: "$productData.productImg",
+//                 productRating: "$productData.productRating",
+//                 OverallRating: "$productData.OverallRating",
+//                 createdAt: "$productData.createdAt",
+//                 updatedAt: "$productData.updatedAt",
+//                 SellerShopName: "$sellerShopName.storeName",
+//                 productCategoryName: "$name"
+//             },
+
+//         },
+//         searchObj
+//     ]).sort(sortvalue)
+
+//     const paginatedItems = productDetails.slice(skip).slice(0, limit);
+//     const total = productDetails.length
+//     const total_pages = Math.ceil(total / limit)
+//     return {
+//         status: true,
+//         message: "List Fetched Successfully!",
+//         data: {
+//             per_page: limit,
+//             total: total,
+//             total_pages: total_pages,
+//             productList: paginatedItems
+//         }
+//     }
+// }
+
 module.exports.productListing = async (reqBody) => {
     const page = reqBody.page_no * 1 || 1;
     const limit = reqBody.no_record * 1 || 10;
     const skip = (page - 1) * limit;
     const rootCategoryId = reqBody.rootCatId
     const categoryId = reqBody.productCategoryID
-    const searchText = reqBody.searchText
+    const searchText = reqBody.searchText;
     let productSort = reqBody.productSort;
-    let sortvalue = { createdAt: -1 } 
-    let reqObj
-    let searchObj;
-    let lookupVar= '_id';
-
-    if (categoryId == '' && searchText == '') {
-        reqObj = {}
-        searchObj = {
-            $match: {}
-        }
-    }
-    else if (categoryId) {
-        let productIDs = await categoryModel.findOne({ _id: ObjectId(categoryId) })
-        if (productIDs.parentCategoryId != null) {
-            lookupVar = 'parentCategoryId'
-        }
-    
+    let sortvalue = { createdAt: -1 }
+    let reqObj;
+    if (categoryId == '') {
+        // console.log("111111111111111111111")
         reqObj = {
-            "$or": [
-                { "parentCategoryId": ObjectId(categoryId) },
-                { "_id": ObjectId(categoryId) },
-            ]
+            "rootCategoryId": ObjectId(rootCategoryId),
+            "productStatus": true
         }
-
-        searchObj = {
-            $match: {}
-        }
-    }
-    else if (searchText) {
-        reqObj = {}
-        searchObj = {
-            $match: {
-                $or: [{
-                    productTitle: {
-                        $regex: searchText,
-                        $options: "$ig"
-                    },
-                },
-                {
-                    productCategoryName: {
-                        $regex: searchText,
-                        $options: "$ig"
-                    }
-                }]
+    } else if (categoryId != '') {
+        // console.log("22222222222222222222222222")
+        // console.log(categoryId, "================categorId")
+        let allcategories = await categoryModel.aggregate([
+            {
+                $match: { "_id": ObjectId(categoryId) }
             },
-        }
-    }
-    else if (categoryId != '' && searchText != '') {
-        let productIDs = await categoryModel.findOne({ _id: ObjectId(categoryId) })
-        if (productIDs.parentCategoryId != null) {
-            lookupVar = 'parentCategoryId'
-        }
-        
-        reqObj = {
-            "$or": [
-                { "parentCategoryId": ObjectId(categoryId) },
-                { "_id": ObjectId(categoryId) },
-            ]
-        }
-
-        searchObj = {
-            $match: {
-                $or: [{
-                    productTitle: {
-                        $regex: searchText,
-                        $options: "$ig"
-                    },
-                }]
+            {
+                $graphLookup: {
+                    from: "categories",
+                    startWith: "$_id",
+                    connectFromField: "_id",
+                    connectToField: "parentCategoryId",
+                    maxDepth: 2,
+                    as: "reportingHierarchy"
+                }
             },
+            {
+                $project: {
+                    "name": 1,
+                    "categories": "$reportingHierarchy._id"
+                }
+            }
+        ])
+
+
+        // console.log(allcategories[0].categories, "pppppppppppppppppppppppppppppppppppp")
+        let catDetails = allcategories[0].categories;
+        if (catDetails.length > 0) {
+            reqObj = {
+                "rootCategoryId": ObjectId(rootCategoryId),
+                "productStatus": true,
+                "productCategoryID": { $in: catDetails }
+            }
+        } else {
+            reqObj = {
+                "rootCategoryId": ObjectId(rootCategoryId),
+                "productStatus": true,
+                "productCategoryID": ObjectId(categoryId)
+            }
         }
     }
 
     if (productSort != 0) {
-        sortvalue = { price: parseInt(productSort)}
+        sortvalue = { price: parseInt(productSort) }
     }
 
-
-    let productDetails = await categoryModel.aggregate([
-
+    let productDetails = await productModel.aggregate([
         {
             $match: reqObj
         },
         {
-            $lookup: {
-                from: 'categories',
-                localField: lookupVar,
-                foreignField: 'parentCategoryId',
-                as: 'parentsHierarchy'
-            }
-        },
-        {
-            $unwind: "$parentsHierarchy"
-        },
-        {
-            $lookup: {
-                from: "products",
-                localField: "parentsHierarchy._id",
-                foreignField: "productCategoryID",
-                as: "productData"
-            }
-        },
-        {
-            $unwind: "$productData"
+            $project: {
+                _id: 1,
+                productTitle: 1,
+                productCategoryID: 1,
+                price: 1,
+                currency: 1,
+                productImg: 1,
+                productRating: 1,
+                OverallRating: 1,
+                createdAt: 1,
+                updatedAt: 1
+            },
         },
         {
             $match: {
-                "productData.productStatus": true,
-                "productData.rootCategoryId": ObjectId(rootCategoryId)
+                productTitle: {
+                    $regex: searchText,
+                    $options: "i"
+                }
             }
-        },
-        {
-
-            $lookup: {
-                from: "sellers",
-                localField: "productData.SellerStoreID",
-                foreignField: "_id",
-                as: "sellerShopName"
-            }
-        },
-        {
-            $unwind: "$sellerShopName"
-        },
-        {
-            $project: {
-                _id: "$productData._id",
-                productTitle: "$productData.productTitle",
-                productCategoryID: "$productData.productCategoryID",
-                price: "$productData.price",
-                currency: "$productData.currency",
-                // productImg: { $arrayElemAt: ["$productData.thumbnailImgs", 0] },
-                productImg: "$productData.productImg",
-                productRating: "$productData.productRating",
-                OverallRating: "$productData.OverallRating",
-                createdAt: "$productData.createdAt",
-                updatedAt: "$productData.updatedAt",
-                SellerShopName: "$sellerShopName.storeName",
-                productCategoryName: "$name"
-            },
-
-        },
-        searchObj
+        }
     ]).sort(sortvalue)
 
     const paginatedItems = productDetails.slice(skip).slice(0, limit);
@@ -194,7 +300,12 @@ module.exports.productListing = async (reqBody) => {
             productList: paginatedItems
         }
     }
+
+
 }
+
+
+
 
 module.exports.getSingleproduct = async (reqParams) => {
     let result = await productModel.findOne({ _id: reqParams.id })
