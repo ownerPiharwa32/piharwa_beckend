@@ -33,7 +33,7 @@ router.post('/buyers/verify/otp', buyersController.verifyOTP)
 router.post('/user/forget-password', commonController.forgetPassword)
 
 router.get('/main/category/list', categoryController.getMNCategoryDetails)
-router.get('/category/list/:rootCatId/:catId', categoryController.getCategoryDetails)
+router.get('/category/list/:rootCatId', categoryController.getCategoryDetails)
 router.get('/categories/list/all', categoryController.allCategoriesList);
 router.get('/featured/categories/list', categoryController.getFeaturedCategories)
 router.post('/product/list', productController.productListing)

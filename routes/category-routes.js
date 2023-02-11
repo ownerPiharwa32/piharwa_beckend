@@ -135,7 +135,7 @@
 
 /**
 * @swagger
-* /api/v1/category/list/{rootCatId}/{catId}:
+* /api/v1/category/list/{rootCatId}:
 *   get:
 *     tags:
 *       - category-controller
@@ -147,11 +147,6 @@
 *         description: Main Category id
 *         in: path
 *         required: true
-*         type: string
-*       - name: catId
-*         description: Category id
-*         in: path
-*         required: false
 *         type: string
 *     responses:
 *       200:

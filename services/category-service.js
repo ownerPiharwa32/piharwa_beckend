@@ -39,7 +39,7 @@ module.exports.allCategoriesList = async () => {
 }
 
 
-module.exports.getAllCategory = async (reqParams) => {
+module.exports.getAllCategory1 = async (reqParams) => {
     try {
         let categoryId;
         let result;
@@ -59,6 +59,22 @@ module.exports.getAllCategory = async (reqParams) => {
         console.log(err);
     }
 }
+
+module.exports.getAllCategory = async (reqParams) => {
+    try {
+        const categories = await categoryModel.find({ rootCategory: ObjectId(reqParams.rootCatId) });
+        if (!categories) return [];
+        let result = await this.nestedCategories(categories);
+        return result
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
+
+
+
 
 module.exports.getMNCategoryDetails = async () => {
     try {
