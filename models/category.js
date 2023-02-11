@@ -22,6 +22,13 @@ const categorySchema = new Schema({
         type: Schema.Types.ObjectId,
         default: null
     },
+    categoryImage: {
+        type: String,
+    },
+    featuredCategory: {
+        type: Boolean,
+        default: false
+    }
 }, {
     timestamps: true,
 })

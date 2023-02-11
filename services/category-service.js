@@ -103,3 +103,13 @@ module.exports.updateCategoryDetails = async (reqBody) => {
         { $set: { rootCategory: ObjectId(rootCatId), name: name, slug: slug, parentCategoryId: parentCategoryId } })
     return result
 }
+
+module.exports.getFeaturedCategories = async () => {
+    let result = await categoryModel.find({ "featuredCategory": true }, { rootCategory: 1, name: 1, parentCategoryId: 1, featuredCategory: 1, categoryImage: 1 })
+    
+    return {
+        status: true,
+        message: "Categories List fetched Successfully",
+        data: result
+    }
+}

@@ -56,3 +56,12 @@ module.exports.allCategoriesList = async function (req, res) {
         res.json({"status": false , "message": e.errors});
     }
 }
+
+module.exports.getFeaturedCategories = async function (req, res) { 
+    try {
+        const result = await categoryService.getFeaturedCategories();
+        res.json({"status": result.status , "message": result.message , data: result.data });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}
