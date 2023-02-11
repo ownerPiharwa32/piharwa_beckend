@@ -86,7 +86,8 @@ module.exports.nestedCategories = async (categories, parentId = null) => {
             _id: cate._id,
             name: cate.name,
             slug: cate.slug,
-            children: await this.nestedCategories(categories, cate._id)
+            children: await this.nestedCategories(categories, cate._id),
+            parentCategoryId: cate.parentCategoryId
         })
     }
     return categoryList;
