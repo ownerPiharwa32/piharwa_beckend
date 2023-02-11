@@ -247,7 +247,7 @@ module.exports.addFeaturedProduct = async (reqBody) => {
 
 module.exports.getFeaturedProduct = async () => {
     try {
-        let fProduct = await productModel.find({ featuredProduct: true, productStatus: true }, { productImg: 1, productTitle: 1 }).limit(4)
+        let fProduct = await productModel.find({ featuredProduct: true, productStatus: true }, { productImg: 1, productTitle: 1 }).limit(6)
         return {
             status: true,
             message: "Featured Products Fecthed Successfully",
