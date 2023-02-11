@@ -88,7 +88,7 @@ module.exports.sellerProductsList = async (reqUser) => {
                 price: "$sellerShopName.price",
                 currency: "$sellerShopName.currency",
                 rootCategoryId: "$sellerShopName.rootCategoryId",
-                rootCategoryName: "$mainCategory.categoryTitle",
+                rootCategoryName: "$mainCategory.name",
                 featuredProduct: "$sellerShopName.featuredProduct",
                 createdAt: 1,
                 updatedAt: 1
