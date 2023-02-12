@@ -72,7 +72,7 @@ module.exports.cartListing = async (reqUser) => {
                 productImg: "$productData.productImg",
                 quantity: 1,
                 sizes: 1,
-                price: "$productData.price"
+                price: {$cond: [{$eq: ['$productData.allowDiscount', true]}, '$productData.discountPrice', '$productData.price' ]}
             }
         }
     ])
