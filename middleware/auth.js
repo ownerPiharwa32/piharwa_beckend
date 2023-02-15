@@ -9,25 +9,27 @@ module.exports.VerifyToken = async function (req, res, next) {
     try {
         const token = await isValidToken(req.headers["authorization"]);
         if (!token.valid) {
-           console.log("Srry")
-        }
-        user_id = token.data.id
-        const userToken = await tokenModel.findOne({
-            user_id: token.data.id,
-            'accessToken': token.token
-        });
-        if (!userToken) {
-            console.log("Srry")
-        }
+            res.status(401).json({ "status": false, "message": "Unauthorized User" })
+        } else {
+            user_id = token.data.id
+            const userToken = await tokenModel.findOne({
+                user_id: token.data.id,
+                'accessToken': token.token
+            });
+            if (!userToken) {
+                res.status(401).json({ "status": false, "message": "Unauthorized User" })
+            }
+            const user = await userModel.findById({
+                _id: userToken.user_id
+            });
+            req.user = { user_id: user.id, emailId: user.emailId, role: user.role },
+                req.token = token.token
+            next();
 
-        const user = await userModel.findById({
-            _id: userToken.user_id
-        });
-        req.user = { user_id : user.id, emailId : user.emailId , role: user.role } ,
-        req.token = token.token
-        next();
+        }
     } catch (e) {
-        console.log(e,"Srry")
+        console.log(e, "Srry")
+        res.status(401).json({ "status": false, "message": "Unauthorized User" })
     }
 }
 
