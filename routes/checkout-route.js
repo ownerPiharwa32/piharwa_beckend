@@ -204,3 +204,51 @@
  *            application/json:
  *                type: object
  */
+
+
+
+
+
+/**
+* @swagger
+* definition:
+*   DashboardOrderList:
+*     properties:
+*       pageNo:
+*         type: integer
+*       noRecord:
+*         type: integer
+*
+*/
+
+
+/**
+ * @swagger
+ * /api/v1/dashboard/orders/list:
+ *   post:
+ *     security:
+ *       - bearerAuth: [] 
+ *     tags:
+ *       - checkout-controller
+ *     description: All Order List Details
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: BuyerDetails
+ *         description: All object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/DashboardOrderList'
+ *     responses:
+ *       200:
+ *         description: Successfully Created
+ *         content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ * 
+ */
+
+

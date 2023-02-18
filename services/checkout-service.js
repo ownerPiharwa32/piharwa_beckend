@@ -104,6 +104,60 @@ module.exports.orderDetailList = async (reqUser) => {
 } 
 
 
+module.exports.dashBoardOrders = async (reqUser, reqBody) => { 
+    try {
+        let result = await ordersModel.aggregate([
+            {
+                $match: { "paymentStatus": "paid" }
+            },
+            {
+                $lookup:
+                {
+                    from: 'products',
+                    localField: 'productDetails.productID',
+                    foreignField: '_id',
+                    as: 'productData'
+                }
+            },
+            {
+                $unwind: "$productData"
+            },
+            {
+                $group: {
+                    _id: "$razorpayOrderId",
+                    firstName: { $first: "$firstName" },
+                    lastName: { $first: "$lastName"},
+                    amount: { $first: "$amount" },
+                    paymentStatus: { $first: "$paymentStatus" },
+                    trackingStatus:  { $first: "$trackingStatus" },
+                    createdAt: { $first: "$createdAt" },
+                    "items": {
+                        "$addToSet": {
+                            productTitle: "$productData.productTitle",
+                            productSKU: "$productData.productSKU",
+                            productImg: "$productData.productImg",
+                        }
+                    }
+
+                }
+
+            }
+
+        ])
+        return {
+            status: true,
+            message: "Order List fetched Successfully",
+            data: result
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+
+
+
+
 module.exports.updateTrackingStatus = async(reqUser, reqParams) => {
     let orderId = reqParams.orderId;
     let trackingStatus = reqParams.status

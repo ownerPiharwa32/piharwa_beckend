@@ -28,6 +28,16 @@ module.exports.orderDetailList = async (req, res) => {
     }
 }
 
+module.exports.dashBoardOrders = async (req, res) => {
+    try {
+        const result = await checkoutService.dashBoardOrders(req.user, req.body);
+        res.json({"status": true , "message": result.message, "data": result.data });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}
+
+
 module.exports.updateTrackingStatus = async (req, res) => {
     try {
         const result = await checkoutService.updateTrackingStatus(req.user, req.params);
