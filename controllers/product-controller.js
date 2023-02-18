@@ -51,6 +51,14 @@ module.exports.addFeaturedProduct = async (req, res) => {
         res.json({"status": false , "message": e});
     }
 }
+module.exports.addHomeDecorProduct = async (req, res) => {
+    try {
+        const result = await productService.addHomeDecorProduct(req.body);
+        res.json({"status": true , "message": "Product Updated Successfully!" });
+    } catch (e) {
+        res.json({"status": false , "message": e});
+    }
+}
 
 
 module.exports.getFeaturedProduct = async function (req, res) { 
@@ -62,6 +70,17 @@ module.exports.getFeaturedProduct = async function (req, res) {
         res.json({"status": false , "message": e.errors});
     }
 }
+
+module.exports.getHomeDecorProduct = async function (req, res) { 
+    try {
+      
+        const result = await productService.getHomeDecorProduct();
+        res.json({"status": result.status , "message": result.message , data: result.data });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}
+
 
 module.exports.getLatestProduct = async function (req, res) { 
     try {

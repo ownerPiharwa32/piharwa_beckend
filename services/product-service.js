@@ -355,6 +355,18 @@ module.exports.addFeaturedProduct = async (reqBody) => {
 
 }
 
+module.exports.addHomeDecorProduct = async (reqBody) => {
+    let result = await productModel.findByIdAndUpdate({ _id: reqBody.productId }, {
+        $set: {
+            homeDecorUtility: reqBody.homeDecorUtility,
+            homeDecorSeq: reqBody.homeDecorSeq
+        },
+    })
+
+    return result;
+
+}
+
 
 module.exports.getFeaturedProduct = async () => {
     try {
@@ -370,6 +382,24 @@ module.exports.getFeaturedProduct = async () => {
     }
 
 }
+
+
+module.exports.getHomeDecorProduct = async () => {
+    try {
+        let fProduct = await productModel.find({ homeDecorUtility: true, productStatus: true }, { productImg: 1, productTitle: 1, homeDecorSeq: 1 }).limit(4).sort({homeDecorSeq : 1})
+        return {
+            status: true,
+            message: "Featured Products Fecthed Successfully",
+            data: fProduct
+        }
+
+    } catch (e) {
+        return { "status": false, "message": "There is no featured Products are selected" }
+    }
+
+}
+
+
 
 
 module.exports.getLatestProduct = async () => {

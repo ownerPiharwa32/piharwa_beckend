@@ -34,6 +34,13 @@ const productSchema = new Schema({
         type: Boolean,  
         default: false
     },
+    homeDecorUtility: {
+        type: Boolean,  
+        default: false
+    },
+    homeDecorSeq: {
+        type: Number,
+    },
     price: {
         type: Number,
     },

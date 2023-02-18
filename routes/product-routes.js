@@ -337,6 +337,76 @@
 
 
 
+/**
+ * @swagger
+ * definition:
+ *   HomeDecorProduct:
+ *     properties:
+ *       productId:
+ *         type: string
+ *       homeDecorUtility:
+ *         type: boolean
+ *         default: false
+ *       homeDecorSeq: 
+ *         type: integer
+ */
+
+
+
+
+/**
+ * @swagger
+ * /api/v1/product/add/home-decor:
+ *   post:
+ *     security:
+ *       - bearerAuth: []  
+ *     tags:
+ *       - featured-product-controller
+ *     description: Add Featured Product
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: ProductDetails
+ *         description: ProductDetails object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           type: object
+ *           $ref: '#/definitions/HomeDecorProduct'
+ *     responses:
+ *       200:
+ *         description: Successfully logged in
+ *         content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ */
+
+
+
+
+/**
+* @swagger
+* /api/v1/product/home-decor/list:
+*   get:
+*     tags:
+*       - featured-product-controller
+*     description: Get Featured Product
+*     produces:
+*       - application/json
+*     responses:
+*       200:
+*         description: Successfully Fetched
+*         content:
+*            application/json:
+*              schema:
+*                type: object
+*/
+
+
+
+
+
 
 /**
 * @swagger

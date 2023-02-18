@@ -39,6 +39,7 @@ router.get('/featured/categories/list', categoryController.getFeaturedCategories
 router.post('/product/list', productController.productListing)
 router.get('/product/single-product/:id', productController.getSingleproduct)
 router.get('/product/featured-product/list', productController.getFeaturedProduct)
+router.get('/product/home-decor/list', productController.getHomeDecorProduct)
 router.get('/product/latest-arrival/list', productController.getLatestProduct)
 router.get('/blog/list', blogController.getBlogList)
 router.get('/blog/single-blog/:id', blogController.getSingleblog)
@@ -64,6 +65,8 @@ router.post('/featured/product/upload/images/:productId', upload.uploadFile.arra
 router.post('/product/remove/images/:productId/:productImgId', uploadController.removeProductImgs);
 
 router.post('/product/add/featured-product', Auth.restrictTo(roles.admin), productController.addFeaturedProduct)
+
+router.post('/product/add/home-decor', Auth.restrictTo(roles.admin), productController.addHomeDecorProduct)
 
 /************************* Seller Api's *******************************/
 
