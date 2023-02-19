@@ -21,3 +21,18 @@ module.exports.logout = async (req, res, next) => {
         res.json({"status": false , "message": e});        
     }
 };
+
+module.exports.contactEmail = async (req, res, next) => {
+    try {
+        const result = await commonService.contactEmail(req.body);
+        if (result.status) {
+            res.json({ status: result.status, message: result.message })
+        } 
+    } catch (e) {
+        console.log(e)
+        res.json({"status": false , "message": e});        
+    }
+};
+
+
+

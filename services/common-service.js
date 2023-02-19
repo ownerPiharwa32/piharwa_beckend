@@ -106,3 +106,29 @@ module.exports.logout = async (reqUser, user_token) => {
         message: "Logged out successfully!",
     };
 };
+
+module.exports.contactEmail = async (reqBody) => {
+    
+    let emailTemplate = `<strong>Name : </strong> ${reqBody.firstName + ' ' + reqBody.lastName}<br><br><strong>Description : </strong> <p>${reqBody.description}</p><br><br>Best Regards,<br>${reqBody.firstName + ' ' + reqBody.lastName}`;
+
+    var mailOptions = {
+        from: reqBody.emailId,
+        to: config.emailSecret.SES_USER_EMAIL,
+        subject: reqBody.subject,
+        html: emailTemplate
+    };
+    
+    let info = transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+    });
+    
+    return {
+        status: true,
+        message: "Email Sent successfully!",
+    };
+
+}

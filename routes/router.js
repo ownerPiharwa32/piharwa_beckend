@@ -44,7 +44,7 @@ router.get('/product/latest-arrival/list', productController.getLatestProduct)
 router.get('/blog/list', blogController.getBlogList)
 router.get('/blog/single-blog/:id', blogController.getSingleblog)
 router.get('/testimonials/list', testimonialController.listTestimonialDetails)
-
+router.post('/contact/email', commonController.contactEmail)
 router.use(Auth.VerifyToken);
 
 router.post('/logout', commonController.logout);
