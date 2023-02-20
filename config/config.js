@@ -19,7 +19,7 @@ const config = {
     jwtSession: {
       session: false,
     },
-    web_timeout: 1 * 24 * 60 * 60, // in seconds (expires after 1 day),
+    web_timeout: 30 * 24 * 60 * 60, // in seconds (expires after 1 day),
   },
   s3Client: {
     region: process.env.S3_REGION,
