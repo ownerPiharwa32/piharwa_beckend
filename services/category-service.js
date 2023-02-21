@@ -15,7 +15,7 @@ module.exports.addCategoryDetails = async (reqBody) => {
 
 module.exports.allCategoriesList = async () => {
     let arr = []
-    let mainCategories = await mainCategoryModel.find()
+    let mainCategories = await mainCategoryModel.find().sort({name: -1})
     let mnCatId1 = mainCategories[0]._id
     let mnCatId2 = mainCategories[1]._id
     let subCategories = await categoryModel.find({ "parentCategoryId": null })
