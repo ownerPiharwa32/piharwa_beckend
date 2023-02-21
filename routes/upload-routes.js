@@ -25,19 +25,17 @@
  *     description: Update image in products
  *     consumes:
  *       - multipart/form-data
- *     produces:
- *       - application/json
  *     parameters:
- *       - in: formData
- *         type: file
- *         name: image
- *         description: The file to upload.
- *         required: true
  *       - name: productId
  *         description: Product id
  *         in: path
  *         required: true
  *         type: "string"
+ *       - in: formData
+ *         type: file
+ *         name: image
+ *         description: The file to upload.
+ *         required: true
  *     responses:
  *       200:
  *         description: Uploaded successfully

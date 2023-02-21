@@ -315,7 +315,7 @@ module.exports.getSingleproduct = async (reqParams) => {
 
 module.exports.updateImgForProduct = async (fileLocation, reqParams) => {
     let result = await productModel.findByIdAndUpdate({ _id: reqParams.productId }, {
-        $push: {
+        $set: {
             thumbnailImgs: fileLocation
         }
     })
