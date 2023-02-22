@@ -38,7 +38,7 @@ module.exports.paymentVerify = async (reqBody) => {
         console.log("sig generated ", expectedSignature);
         var response = { "signatureIsValid": "false" }
         if (expectedSignature === reqBody.razorpay_signature) {
-            await ordersModel.findOneAndUpdate({ razorpayOrderId: reqBody.razorpay_order_id }, {$set: { paymentStatus : "paid" }})
+            await ordersModel.findOneAndUpdate({ razorpayOrderId: reqBody.razorpay_order_id }, { $set: { paymentStatus: "paid" } })
             response = { "signatureIsValid": "true" }
         }
 
@@ -101,10 +101,10 @@ module.exports.orderDetailList = async (reqUser) => {
         console.log(e)
     }
 
-} 
+}
 
 
-module.exports.dashBoardOrders = async (reqUser, reqBody) => { 
+module.exports.dashBoardOrders = async (reqUser, reqBody) => {
     try {
         let result = await ordersModel.aggregate([
             {
@@ -126,10 +126,10 @@ module.exports.dashBoardOrders = async (reqUser, reqBody) => {
                 $group: {
                     _id: "$razorpayOrderId",
                     firstName: { $first: "$firstName" },
-                    lastName: { $first: "$lastName"},
+                    lastName: { $first: "$lastName" },
                     amount: { $first: "$amount" },
                     paymentStatus: { $first: "$paymentStatus" },
-                    trackingStatus:  { $first: "$trackingStatus" },
+                    trackingStatus: { $first: "$trackingStatus" },
                     createdAt: { $first: "$createdAt" },
                     "items": {
                         "$addToSet": {
@@ -158,14 +158,86 @@ module.exports.dashBoardOrders = async (reqUser, reqBody) => {
 
 
 
-module.exports.updateTrackingStatus = async(reqUser, reqParams) => {
+module.exports.updateTrackingStatus = async (reqUser, reqParams) => {
     let orderId = reqParams.orderId;
     let trackingStatus = reqParams.status
 
     let result = await ordersModel.findOneAndUpdate({ razorpayOrderId: orderId }, { $set: { trackingStatus: trackingStatus } })
-    
+
     return {
         status: true,
         message: "Tracking Status Update Successfully"
     }
+}
+
+
+module.exports.dashBoardOrdersWithOrderId = async (reqUser, reqParams) => {
+    let orderId = reqParams.orderId;
+    let result = await ordersModel.aggregate([
+        {
+            $match: {
+                "razorpayOrderId": orderId,
+                "paymentStatus": "paid"
+            }
+
+        },
+        {
+            $lookup:
+            {
+                from: 'products',
+                localField: 'productDetails.productID',
+                foreignField: '_id',
+                as: 'productData'
+            }
+        },
+        {
+            $unwind: "$productData"
+        },
+        {
+            $group: {
+                _id: "$razorpayOrderId",
+                firstName: { $first: "$firstName" },
+                lastName: { $first: "$lastName" },
+                mobileNo: { $first: "$mobileNo" },
+                amount: { $first: "$amount" },
+                paymentStatus: { $first: "$paymentStatus" },
+                trackingStatus: { $first: "$trackingStatus" },
+                address_line_one: { $first: "$address_line_one" },
+                address_line_two: { $first: "$address_line_two" },
+                landmark: { $first: "$landmark" },
+                city: { $first: "$city" },
+                state: { $first: "$state" },
+                country: { $first: "$country" },
+                pincode: { $first: "$pincode" },
+                createdAt: { $first: "$createdAt" },
+                "items": {
+                    "$addToSet": {
+                        productTitle: "$productData.productTitle",
+                        productSKU: "$productData.productSKU",
+                        productImg: "$productData.productImg",
+                        quantity: 1,
+
+                    }
+                }
+
+            }
+
+        }
+
+    ])
+
+    if (result.length > 0) {
+        return {
+            status: true,
+            message: "Order Details Fetched Successfully",
+            data: result
+        }
+    }
+    else {
+        return {
+            status: false,
+            message: "No Data Found"
+        }
+    }
+
 }

@@ -252,3 +252,32 @@
  */
 
 
+
+
+
+
+/**
+* @swagger
+* /api/v1/dashboard/order/details/{orderId}:
+*   get:
+*     security:
+*       - bearerAuth: [] 
+*     tags:
+*       - checkout-controller
+*     description: Get Order Details
+*     produces:
+*       - application/json
+*     parameters:
+*       - name: orderId
+*         description: Order Details
+*         in: path
+*         required: true
+*         type: string
+*     responses:
+*       200:
+*         description: Successfully Fetched
+*         content:
+*            application/json:
+*              schema:
+*                type: object
+*/  

@@ -37,6 +37,14 @@ module.exports.dashBoardOrders = async (req, res) => {
     }
 }
 
+module.exports.dashBoardOrdersWithOrderId = async (req, res) => {
+    try {
+        const result = await checkoutService.dashBoardOrdersWithOrderId(req.user, req.params);
+        res.json({"status": true , "message": result.message, "data": result.data });
+    } catch (e) {
+        res.json({"status": false , "message": e.errors});
+    }
+}
 
 module.exports.updateTrackingStatus = async (req, res) => {
     try {

@@ -72,6 +72,7 @@ router.post('/product/add/home-decor', Auth.restrictTo(roles.admin), productCont
 
 router.get('/seller/product/list', sellersController.sellerProductsList)
 router.post('/dashboard/orders/list', Auth.restrictTo(roles.sellers, roles.admin), checkoutController.dashBoardOrders)
+router.get('/dashboard/order/details/:orderId', Auth.restrictTo(roles.sellers, roles.admin), checkoutController.dashBoardOrdersWithOrderId)
 /************************* common Api's *******************************/
 
 
