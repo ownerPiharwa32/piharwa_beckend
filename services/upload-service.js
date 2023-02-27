@@ -11,9 +11,11 @@ module.exports.uploadProductImgs = async (file, reqParams) => {
 }
 
 module.exports.uploadFeaturedImgs = async (file, reqParams) => {
-    let fileLocation = file[0].location;
-    let result = await productService.uploadFeaturedImgs(fileLocation, reqParams)
-    return result
+    if (file.length > 0) {
+        let fileLocation = file[0].location;
+        let result = await productService.uploadFeaturedImgs(fileLocation, reqParams)
+        return result  
+    }
 }
 
 module.exports.removeProductImgs = async (reqParams) => {
